@@ -30,7 +30,12 @@ std::string BinOpTranslator::Translate(llvm::BinaryOperator *Inst, Context &Cont
     data["right"] = opString[1];
     data["op"] = GetOpSymbol(Inst->getOpcode());
 
-    return TemplateManager::Instance().Render(TemplateManager::BinaryOperation, data);
+    if (data["op"] == "BITSL" || data["op"] == "BITSR") {
+        return TemplateManager::Instance().Render(TemplateManager::BinaryOperationFunc, data);
+    }
+    else {
+        return TemplateManager::Instance().Render(TemplateManager::BinaryOperation, data);
+    }
 }
 
 const char *BinOpTranslator::GetOpSymbol(unsigned Opcode) {
@@ -47,21 +52,21 @@ const char *BinOpTranslator::GetOpSymbol(unsigned Opcode) {
         case Instruction::SDiv:
             return "/";
         case Instruction::URem:
-            return "%";
+            return "mod";
         case Instruction::SRem:
-            return "%";
+            return "mod";
         case Instruction::And:
-            return "&";
+            return "and";
         case Instruction::Or:
-            return "|";
+            return "or";
         case Instruction::Xor:
-            return "^";
+            return "xor";
         case Instruction::Shl:
-            return "<<";
+            return "BITSL";
         case Instruction::LShr:
-            return ">>";
+            return "BITSR";
         case Instruction::AShr:
-            return ">>";
+            return "BITSR";
         default:
             return nullptr;
     }

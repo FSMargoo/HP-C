@@ -1,1 +1,1 @@
-﻿{{ resultVariable }}{{ left }} {{ op }} {{ right }}
+﻿{{ resultVariable }}{{ left }} {{ op }} {{ right }};

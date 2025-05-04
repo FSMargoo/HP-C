@@ -38,6 +38,7 @@ add_executable(PPLForge forge/main.cpp
         forge/src/translator/instruction/BinOp.cpp
         forge/include/translator/instruction/ResultAnalyze.h
         forge/src/translator/instruction/ResultAnalyzer.cpp
+        forge/include/translator/instruction/Alloca.h
 )
 
 target_include_directories(PPLForge SYSTEM PRIVATE

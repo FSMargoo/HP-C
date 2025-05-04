@@ -1,5 +1,5 @@
 ﻿{% if export %}EXPORT {% endif %}{{name}}({{args}})BEGIN
-LOCAL i_Status_Machine := 0;
+LOCAL i_Status_Machine := "v0";
 LOCAL i_Last_Status_Machine := i_Status_Machine;
 {{predefine}}
 {{firstBlock}}

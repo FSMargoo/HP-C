@@ -17,6 +17,7 @@ public:
     static constexpr const char *Array = "../template/array.inja";
     static constexpr const char *Args = "../template/args.inja";
     static constexpr const char *BinaryOperation = "../template/binary_operation.inja";
+    static constexpr const char *BinaryOperationFunc = "../template/binary_operation_func.inja";
 
 public:
     /**

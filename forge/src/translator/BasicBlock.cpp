@@ -16,6 +16,9 @@ std::string BasicBlockTranslator::Translate(llvm::BasicBlock &Block, Context &Co
         if (auto binOp = llvm::dyn_cast<llvm::BinaryOperator>(&inst)) {
             code += BinOpTranslator::Translate(binOp, Contxt) + "\n";
         }
+        if (auto alloca = llvm::dyn_cast<llvm::AllocaInst>(&inst)) {
+
+        }
     }
 
     return code;
