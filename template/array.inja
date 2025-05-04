@@ -1,0 +1,1 @@
+﻿{ {% for element in elements %}{{ element }}{% if loop.index1 < num %}, {% endif %}{% endfor %} }

@@ -6,7 +6,7 @@
 
 #include <include/translator/Constant.h>
 
-#include <inja/inja.hpp>
+#include <include/TemplateManager.h>
 
 using namespace llvm;
 
@@ -47,7 +47,6 @@ std::string ConstantTranslator::Translate(llvm::Constant &Constant, Context &Con
 
         // Check for the sequential data
         inja::json data;
-        const std::string templateString = "{ {% for element in elements %}{{ element }}{% if loop.index1 < num %}, {% endif %}{% endfor %} }";
 
         data["num"] = cds->getNumElements();
         for (unsigned i = 0; i < cds->getNumElements(); ++i) {
@@ -55,20 +54,19 @@ std::string ConstantTranslator::Translate(llvm::Constant &Constant, Context &Con
             data["elements"].push_back(Translate(*element, Contxt));
         }
 
-        return inja::render(templateString, data);
+        return TemplateManager::Instance().Render(TemplateManager::Array, data);
     }
 
     // Check for ConstantArray
     if (const ConstantArray *ca = dyn_cast<ConstantArray>(&Constant)) {
         inja::json data;
-        const std::string templateString = "{ {% for element in elements %}{{ element }}{% if loop.index1 < num %}, {% endif %}{% endfor %} }";
 
         data["num"] = ca->getType()->getNumElements();
         for (unsigned i = 0; i < ca->getType()->getNumElements(); ++i) {
             data["elements"].push_back(Translate(*ca->getOperand(i), Contxt));
         }
 
-        return inja::render(templateString, data);
+        return TemplateManager::Instance().Render(TemplateManager::Array, data);
     }
 
     // Check for global reference
@@ -79,14 +77,13 @@ std::string ConstantTranslator::Translate(llvm::Constant &Constant, Context &Con
     // Check for ConstantStruct
     if (const ConstantStruct *cs = dyn_cast<ConstantStruct>(&Constant)) {
         inja::json data;
-        const std::string templateString = "{ {% for element in elements %}{{ element }}{% if loop.index1 < num %}, {% endif %}{% endfor %} }";
 
         data["num"] = cs->getType()->getNumElements();
         for (unsigned i = 0; i < cs->getType()->getNumElements(); ++i) {
             data["elements"].push_back(Translate(*cs->getOperand(i), Contxt));
         }
 
-        return inja::render(templateString, data);
+        return TemplateManager::Instance().Render(TemplateManager::Array, data);
     }
 
     // Check for ConstantVector

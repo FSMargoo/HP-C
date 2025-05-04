@@ -7,6 +7,7 @@
 #include <include/translator/Module.h>
 #include <include/translator/Variable.h>
 #include <include/translator/Constant.h>
+#include <include/translator/Function.h>
 
 ModuleTranslator::ModuleTranslator(std::unique_ptr<llvm::Module> &Module) : _module(Module) {
 }
@@ -26,11 +27,8 @@ std::string ModuleTranslator::Translate() {
         }
     }
 
-    for (llvm::Function &func: *_module) {
-        for (llvm::BasicBlock &bb: func) {
-            for (llvm::Instruction &inst: bb) {
-            }
-        }
+    for (llvm::Function &function: *_module) {
+        code += FunctionTranslator::Translate(function, _context) + "\n";
     }
 
     return code;

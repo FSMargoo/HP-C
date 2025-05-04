@@ -7,6 +7,30 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
+#include <include/Context.h>
 
+#include <include/llvm/LLVM.h>
+
+/**
+ * The translator for the llvm::Function object
+ */
+class FunctionTranslator {
+public:
+    /**
+     * Translating a llvm::Function object to the PPL code
+     * @param Function The function to be translated
+     * @param Contxt The context of the module
+     * @return The translated code of function
+     */
+    static std::string Translate(llvm::Function &Function, Context &Contxt);
+
+private:
+    /**
+     * Analyizing the function parameters
+     * @param Function The function to be analyzed
+     * @return The parameter definition string
+     */
+    static std::string AnalyzingParameters(llvm::Function &Function);
+};
 
 #endif //FUNCTION_H

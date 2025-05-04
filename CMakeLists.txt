@@ -30,6 +30,8 @@ add_executable(PPLForge forge/main.cpp
         forge/include/Context.h
         forge/include/translator/Function.h
         forge/src/translator/Function.cpp
+        forge/include/TemplateManager.h
+        forge/src/TemplateManager.cpp
 )
 
 target_include_directories(PPLForge SYSTEM PRIVATE

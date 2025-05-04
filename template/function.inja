@@ -1,0 +1,4 @@
+﻿{% if export %}EXPORT {% endif %}{{name}}({{args}})
+BEGIN
+    {% for code in codes %}code{% endfor %}
+END

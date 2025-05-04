@@ -6,11 +6,12 @@
 
 #include <include/translator/Variable.h>
 
+#include <include/TemplateManager.h>
+
 #include <inja/inja.hpp>
 
 std::string VariableTranslator::GlobalVariableTranslate(llvm::GlobalVariable &Variable,
                                                         const std::string &Initializer) {
-    static inja::Environment env;
     inja::json data;
 
     auto name = Variable.getName().str();
@@ -39,7 +40,7 @@ std::string VariableTranslator::GlobalVariableTranslate(llvm::GlobalVariable &Va
     data["initializer"] = initializer;
     data["isGlobal"] = true;
 
-    return env.render_file("../template/variable.inja", data);
+    return TemplateManager::Instance().Render(TemplateManager::Variable, data);
 }
 
 std::pair<std::vector<int>, llvm::Type *> VariableTranslator::ArrayExpand(
@@ -60,8 +61,6 @@ std::string VariableTranslator::ArrayZeroInitExpand(std::vector<int> Index) {
 
     inja::json arrayData;
     auto size = Index[0];
-    const std::string arrayTemplate =
-            "{ {% for element in elements %}{{ element }}{% if loop.index1 < num %}, {% endif %}{% endfor %} }";
     arrayData["num"] = size;
 
     Index.pop_back();
@@ -69,5 +68,5 @@ std::string VariableTranslator::ArrayZeroInitExpand(std::vector<int> Index) {
         arrayData["elements"].push_back(ArrayZeroInitExpand(Index));
     }
 
-    return inja::render(arrayTemplate, arrayData);
+    return TemplateManager::Instance().Render(TemplateManager::Array, arrayData);
 }

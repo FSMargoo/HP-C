@@ -25,7 +25,11 @@ std::string LLVMAnonyExtractor::Extract(const llvm::Value *Value) {
     static std::string buffer;
     static llvm::raw_string_ostream rso(buffer);
 
+    buffer.clear();
     Value->printAsOperand(rso, false);
+
+    // Remove the % symbol
+    buffer = buffer.substr(1, buffer.size() - 1);
 
     buffer = "v" + LLVMNameLegalizer::Legalize(buffer);
 
