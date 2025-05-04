@@ -29,13 +29,15 @@ typedef struct {
     signed c : 5;
 } MyStruct;
 
+MyStruct structArrayTest[2] = { { .a = 1, .b = 3, .c = -5 }, { .a = 1, .b = 3, .c = -5 } };
+
 typedef union {
     int x;
     char y[4];
 } MyUnion;
 
 static int add(int a, int b) {
-    return a + b + arrPrime[1][2];
+    return a + b + arrPrime[1][2] + structArrayTest[0].a;
 }
 
 int factorial(int n) {

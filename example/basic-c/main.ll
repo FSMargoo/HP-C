@@ -9,6 +9,7 @@ target triple = "x86_64-w64-windows-gnu"
 @g_int = dso_local global i32 42, align 4
 @c_int = dso_local constant i32 100, align 4
 @v_int = dso_local global i32 0, align 4
+@structArrayTest = dso_local global [2 x { i32, i8 }] [{ i32, i8 } { i32 1, i8 -37 }, { i32, i8 } { i32 1, i8 -37 }], align 16
 @fp_add = dso_local global ptr @add, align 8
 @.str = private unnamed_addr constant [13 x i8] c"PASS: \E5\8A\A0\E6\B3\95\00", align 1
 @.str.1 = private unnamed_addr constant [13 x i8] c"PASS: \E5\87\8F\E6\B3\95\00", align 1
@@ -150,7 +151,9 @@ define internal i32 @add(i32 noundef %0, i32 noundef %1) #0 {
   %7 = add nsw i32 %5, %6
   %8 = load i32, ptr getelementptr inbounds ([3 x i32], ptr getelementptr inbounds ([2 x [3 x i32]], ptr @arrPrime, i64 0, i64 1), i64 0, i64 2), align 4
   %9 = add nsw i32 %7, %8
-  ret i32 %9
+  %10 = load i32, ptr @structArrayTest, align 16
+  %11 = add nsw i32 %9, %10
+  ret i32 %11
 }
 
 ; Function Attrs: noinline nounwind optnone uwtable

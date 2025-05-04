@@ -78,26 +78,25 @@ std::string ConstantTranslator::Translate(llvm::Constant &Constant, Context &Con
 
     // Check for ConstantStruct
     if (const ConstantStruct *cs = dyn_cast<ConstantStruct>(&Constant)) {
-        std::vector<std::string> values;
+        inja::json data;
+        const std::string templateString = "{ {% for element in elements %}{{ element }}{% if loop.index1 < num %}, {% endif %}{% endfor %} }";
+
+        data["num"] = cs->getType()->getNumElements();
         for (unsigned i = 0; i < cs->getType()->getNumElements(); ++i) {
-            values.emplace_back(Translate(*cs->getOperand(i), Contxt));
+            data["elements"].push_back(Translate(*cs->getOperand(i), Contxt));
         }
 
-        std::string constructTemplate = "[struct constructor]"
-                "{% for element in elements %}LOCAL {{ \"{{\" }}name{{ \"}}\" }}_{{loop.index1}} := {{element}};\n"
-                "{% endfor %}";
-        inja::json data;
-        data["elements"] = values;
-
-        return inja::render(constructTemplate, data);
+        return inja::render(templateString, data);
     }
 
     // Check for ConstantVector
     if (const ConstantVector *CV = dyn_cast<ConstantVector>(&Constant)) {
-        outs() << "- ConstantVector of length " << CV->getType()->getNumElements() << "\n";
+        // TODO: Processing the constant vector
+
         for (unsigned i = 0; i < CV->getType()->getNumElements(); ++i) {
             return Translate(*CV->getOperand(i), Contxt);
         }
+
         return "";
     }
 

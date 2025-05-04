@@ -22,8 +22,8 @@ std::string VariableTranslator::GlobalVariableTranslate(llvm::GlobalVariable &Va
     // Process the array type, we do not
     if (auto *arrType = llvm::dyn_cast<llvm::ArrayType>(Variable.getValueType())) {
         do {
-            // We just skip the string initializer and the array that already has initializer
-            if (Initializer[0] == '\"' && !initializer.empty()) {
+            // We just skip the string initializer or the array that already has initializer
+            if (Initializer[0] == '\"' || !initializer.empty()) {
                 break;
             }
 
@@ -32,10 +32,10 @@ std::string VariableTranslator::GlobalVariableTranslate(llvm::GlobalVariable &Va
         } while (false);
     }
 
-    name = "g_" + LLVMNameLegalizer::Legalize(name);
+    name = "v_" + LLVMNameLegalizer::Legalize(name);
 
     data["name"] = name;
-    data["hasInitializer"] = !Initializer.empty();
+    data["hasInitializer"] = !initializer.empty();
     data["initializer"] = initializer;
     data["isGlobal"] = true;
 

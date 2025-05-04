@@ -1,3 +1,1 @@
-﻿{% if isGlobal %}// Global Variable{% endif %}
-// The variable {{name}}
-LOCAL {{name}}{% if hasInitializer %} := {{initializer}}{% endif %};
+﻿LOCAL {{name}}{% if hasInitializer %} := {{initializer}}{% endif %};

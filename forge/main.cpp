@@ -8,5 +8,9 @@ int main(int argc, char **argv) {
     ModuleTranslator translator(module);
     auto result = translator.Translate();
 
+    std::ofstream out("./out.ppl");
+    out << result;
+    out.close();
+
     return 0;
 }
