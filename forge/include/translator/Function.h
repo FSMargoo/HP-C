@@ -31,6 +31,20 @@ private:
      * @return The parameter definition string
      */
     static std::string AnalyzingParameters(llvm::Function &Function);
+
+    /**
+     * Analyzing the predefines of the variables in the function
+     * @param Function The function be analyzed
+     * @return The predefine of variables in PPL code
+     */
+    static std::string AnalyzingPreDefines(llvm::Function &Function);
+
+    /**
+     * Analyzing the label name of the block
+     * @param Block The block to be analyzed
+     * @return The label name of the block
+     */
+    static std::string AnalyzingLabel(llvm::BasicBlock &Block);
 };
 
 #endif //FUNCTION_H

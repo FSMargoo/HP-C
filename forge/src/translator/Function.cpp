@@ -5,6 +5,7 @@
  */
 
 #include <include/translator/Function.h>
+#include <include/translator/BasicBlock.h>
 
 #include <include/TemplateManager.h>
 
@@ -18,24 +19,38 @@ std::string FunctionTranslator::Translate(llvm::Function &Function, Context &Con
     auto name = Function.getName().str();
     bool isExport = name == "main" ? true : false;
     auto args = AnalyzingParameters(Function);
-    std::vector<std::string> codes;
+    std::vector<std::string> labels;
+    std::map<std::string, std::string> labelCodeMapping;
+    std::string firstLabel;
 
-    for (llvm::BasicBlock &blocks: Function) {
-
+    for (auto &block: Function) {
+        if (&block == &(*Function.begin())) {
+            firstLabel = BasicBlockTranslator::Translate(block, Contxt);
+        } else {
+            auto labelName = AnalyzingLabel(block);
+            labels.push_back(AnalyzingLabel(block));
+            labelCodeMapping.insert({labelName, BasicBlockTranslator::Translate(block, Contxt)});
+        }
     }
 
     inja::json data;
     data["export"] = isExport;
     data["name"] = name;
     data["args"] = args;
-    data["codes"] = codes;
+    data["predefine"] = AnalyzingPreDefines(Function);
+    data["firstBlock"] = firstLabel;
+    data["labels"] = labels;
+
+    TemplateManager::Instance().GetEnv().add_callback("getLabelCode", 1, [&labelCodeMapping](inja::Arguments &Args) {
+        return labelCodeMapping[Args.at(0)->get<std::string>()];
+    });
 
     return TemplateManager::Instance().Render(TemplateManager::Function, data);
 }
 
 std::string FunctionTranslator::AnalyzingParameters(llvm::Function &Function) {
     std::vector<std::string> args;
-    for (auto &arg : Function.args()) {
+    for (auto &arg: Function.args()) {
         auto name = arg.getName().str();
         if (!arg.hasName()) {
             name = LLVMAnonyExtractor::Extract(&arg);
@@ -49,4 +64,26 @@ std::string FunctionTranslator::AnalyzingParameters(llvm::Function &Function) {
     data["num"] = args.size();
 
     return TemplateManager::Instance().Render(TemplateManager::Args, data);
+}
+
+std::string FunctionTranslator::AnalyzingPreDefines(llvm::Function &Function) {
+    inja::json data;
+    for (auto &blocks: Function) {
+        for (auto &inst: blocks) {
+            // Scan for the result variable definition;
+            if (!inst.getType()->isVoidTy()) {
+                data["vars"].push_back(LLVMAnonyExtractor::Extract(&inst));
+            }
+        }
+    }
+
+    return TemplateManager::Instance().Render(TemplateManager::VariablePredefine, data);
+}
+
+std::string FunctionTranslator::AnalyzingLabel(llvm::BasicBlock &Block) {
+    if (Block.hasName()) {
+        return Block.getName().str();
+    }
+
+    return LLVMAnonyExtractor::Extract(&Block);
 }

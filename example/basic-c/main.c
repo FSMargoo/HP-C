@@ -76,6 +76,15 @@ int main(void) {
     ASSERT(1 || 0, "逻辑或");
     ASSERT((3 > 2) ? 10 : 20 == 10, "三元运算");
 
+    MyStruct localStruct;
+    localStruct.a = 10;
+    localStruct.b = 1;
+    localStruct.c = 10;
+    MyStruct localStructArray[2];
+    localStructArray[1].a = 10;
+    localStructArray[1].b = 1;
+    localStructArray[1].c = 10;
+
     {
         int x = 0;
         ASSERT(++x == 1, "前置递增");

@@ -159,835 +159,864 @@ define internal i32 @add(i32 noundef %0, i32 noundef %1) #0 {
 ; Function Attrs: noinline nounwind optnone uwtable
 define dso_local i32 @main() #0 {
   %1 = alloca i32, align 4
-  %2 = alloca i32, align 4
-  %3 = alloca i32, align 4
+  %2 = alloca %struct.MyStruct, align 4
+  %3 = alloca [2 x %struct.MyStruct], align 16
   %4 = alloca i32, align 4
   %5 = alloca i32, align 4
   %6 = alloca i32, align 4
   %7 = alloca i32, align 4
-  %8 = alloca %struct.MyStruct, align 4
-  %9 = alloca %union.MyUnion, align 4
-  %10 = alloca i32, align 4
-  %11 = alloca [2 x [3 x i32]], align 16
+  %8 = alloca i32, align 4
+  %9 = alloca i32, align 4
+  %10 = alloca %struct.MyStruct, align 4
+  %11 = alloca %union.MyUnion, align 4
   %12 = alloca i32, align 4
-  %13 = alloca i32, align 4
+  %13 = alloca [2 x [3 x i32]], align 16
+  %14 = alloca i32, align 4
+  %15 = alloca i32, align 4
   store i32 0, ptr %1, align 4
-  br label %14
-
-14:                                               ; preds = %0
-  call void @print(ptr noundef @.str)
-  br label %15
-
-15:                                               ; preds = %14
   br label %16
 
-16:                                               ; preds = %15
-  call void @print(ptr noundef @.str.1)
+16:                                               ; preds = %0
+  call void @print(ptr noundef @.str)
   br label %17
 
 17:                                               ; preds = %16
   br label %18
 
 18:                                               ; preds = %17
-  call void @print(ptr noundef @.str.2)
+  call void @print(ptr noundef @.str.1)
   br label %19
 
 19:                                               ; preds = %18
   br label %20
 
 20:                                               ; preds = %19
-  call void @print(ptr noundef @.str.3)
+  call void @print(ptr noundef @.str.2)
   br label %21
 
 21:                                               ; preds = %20
   br label %22
 
 22:                                               ; preds = %21
-  call void @print(ptr noundef @.str.4)
+  call void @print(ptr noundef @.str.3)
   br label %23
 
 23:                                               ; preds = %22
   br label %24
 
 24:                                               ; preds = %23
-  call void @print(ptr noundef @.str.5)
+  call void @print(ptr noundef @.str.4)
   br label %25
 
 25:                                               ; preds = %24
   br label %26
 
 26:                                               ; preds = %25
-  call void @print(ptr noundef @.str.6)
+  call void @print(ptr noundef @.str.5)
   br label %27
 
 27:                                               ; preds = %26
   br label %28
 
 28:                                               ; preds = %27
-  call void @print(ptr noundef @.str.7)
+  call void @print(ptr noundef @.str.6)
   br label %29
 
 29:                                               ; preds = %28
   br label %30
 
 30:                                               ; preds = %29
-  call void @print(ptr noundef @.str.8)
+  call void @print(ptr noundef @.str.7)
   br label %31
 
 31:                                               ; preds = %30
   br label %32
 
 32:                                               ; preds = %31
-  call void @print(ptr noundef @.str.9)
+  call void @print(ptr noundef @.str.8)
   br label %33
 
 33:                                               ; preds = %32
   br label %34
 
 34:                                               ; preds = %33
-  call void @print(ptr noundef @.str.10)
+  call void @print(ptr noundef @.str.9)
   br label %35
 
 35:                                               ; preds = %34
   br label %36
 
 36:                                               ; preds = %35
-  call void @print(ptr noundef @.str.11)
+  call void @print(ptr noundef @.str.10)
   br label %37
 
 37:                                               ; preds = %36
   br label %38
 
 38:                                               ; preds = %37
-  call void @print(ptr noundef @.str.12)
+  call void @print(ptr noundef @.str.11)
   br label %39
 
 39:                                               ; preds = %38
   br label %40
 
 40:                                               ; preds = %39
-  call void @print(ptr noundef @.str.13)
+  call void @print(ptr noundef @.str.12)
   br label %41
 
 41:                                               ; preds = %40
   br label %42
 
 42:                                               ; preds = %41
-  call void @print(ptr noundef @.str.14)
+  call void @print(ptr noundef @.str.13)
   br label %43
 
 43:                                               ; preds = %42
-  store i32 0, ptr %2, align 4
   br label %44
 
 44:                                               ; preds = %43
-  %45 = load i32, ptr %2, align 4
-  %46 = add nsw i32 %45, 1
-  store i32 %46, ptr %2, align 4
-  %47 = icmp eq i32 %46, 1
-  br i1 %47, label %48, label %49
+  call void @print(ptr noundef @.str.14)
+  br label %45
 
-48:                                               ; preds = %44
-  call void @print(ptr noundef @.str.15)
-  br label %50
-
-49:                                               ; preds = %44
-  call void @print(ptr noundef @.str.16)
-  br label %50
-
-50:                                               ; preds = %49, %48
-  br label %51
-
-51:                                               ; preds = %50
-  br label %52
-
-52:                                               ; preds = %51
-  %53 = load i32, ptr %2, align 4
-  %54 = add nsw i32 %53, 1
-  store i32 %54, ptr %2, align 4
-  %55 = icmp eq i32 %53, 1
-  br i1 %55, label %56, label %57
-
-56:                                               ; preds = %52
-  call void @print(ptr noundef @.str.17)
-  br label %58
-
-57:                                               ; preds = %52
-  call void @print(ptr noundef @.str.18)
-  br label %58
-
-58:                                               ; preds = %57, %56
-  br label %59
-
-59:                                               ; preds = %58
-  br label %60
-
-60:                                               ; preds = %59
-  %61 = load i32, ptr %2, align 4
-  %62 = add nsw i32 %61, -1
-  store i32 %62, ptr %2, align 4
-  %63 = icmp eq i32 %61, 2
-  br i1 %63, label %64, label %65
-
-64:                                               ; preds = %60
-  call void @print(ptr noundef @.str.19)
-  br label %66
-
-65:                                               ; preds = %60
-  call void @print(ptr noundef @.str.20)
-  br label %66
-
-66:                                               ; preds = %65, %64
+45:                                               ; preds = %44
+  %46 = getelementptr inbounds %struct.MyStruct, ptr %2, i32 0, i32 0
+  store i32 10, ptr %46, align 4
+  %47 = getelementptr inbounds %struct.MyStruct, ptr %2, i32 0, i32 1
+  %48 = load i32, ptr %47, align 4
+  %49 = and i32 %48, -8
+  %50 = or i32 %49, 1
+  store i32 %50, ptr %47, align 4
+  %51 = getelementptr inbounds %struct.MyStruct, ptr %2, i32 0, i32 1
+  %52 = load i32, ptr %51, align 4
+  %53 = and i32 %52, -249
+  %54 = or i32 %53, 80
+  store i32 %54, ptr %51, align 4
+  %55 = getelementptr inbounds [2 x %struct.MyStruct], ptr %3, i64 0, i64 1
+  %56 = getelementptr inbounds %struct.MyStruct, ptr %55, i32 0, i32 0
+  store i32 10, ptr %56, align 8
+  %57 = getelementptr inbounds [2 x %struct.MyStruct], ptr %3, i64 0, i64 1
+  %58 = getelementptr inbounds %struct.MyStruct, ptr %57, i32 0, i32 1
+  %59 = load i32, ptr %58, align 4
+  %60 = and i32 %59, -8
+  %61 = or i32 %60, 1
+  store i32 %61, ptr %58, align 4
+  %62 = getelementptr inbounds [2 x %struct.MyStruct], ptr %3, i64 0, i64 1
+  %63 = getelementptr inbounds %struct.MyStruct, ptr %62, i32 0, i32 1
+  %64 = load i32, ptr %63, align 4
+  %65 = and i32 %64, -249
+  %66 = or i32 %65, 80
+  store i32 %66, ptr %63, align 4
+  store i32 0, ptr %4, align 4
   br label %67
 
-67:                                               ; preds = %66
-  br label %68
+67:                                               ; preds = %45
+  %68 = load i32, ptr %4, align 4
+  %69 = add nsw i32 %68, 1
+  store i32 %69, ptr %4, align 4
+  %70 = icmp eq i32 %69, 1
+  br i1 %70, label %71, label %72
 
-68:                                               ; preds = %67
-  %69 = load i32, ptr %2, align 4
-  %70 = add nsw i32 %69, -1
-  store i32 %70, ptr %2, align 4
-  %71 = icmp eq i32 %70, 0
-  br i1 %71, label %72, label %73
+71:                                               ; preds = %67
+  call void @print(ptr noundef @.str.15)
+  br label %73
 
-72:                                               ; preds = %68
-  call void @print(ptr noundef @.str.21)
+72:                                               ; preds = %67
+  call void @print(ptr noundef @.str.16)
+  br label %73
+
+73:                                               ; preds = %72, %71
   br label %74
 
-73:                                               ; preds = %68
-  call void @print(ptr noundef @.str.22)
-  br label %74
-
-74:                                               ; preds = %73, %72
+74:                                               ; preds = %73
   br label %75
 
 75:                                               ; preds = %74
-  %76 = load i32, ptr %2, align 4
-  %77 = add nsw i32 %76, 5
-  store i32 %77, ptr %2, align 4
-  br label %78
+  %76 = load i32, ptr %4, align 4
+  %77 = add nsw i32 %76, 1
+  store i32 %77, ptr %4, align 4
+  %78 = icmp eq i32 %76, 1
+  br i1 %78, label %79, label %80
 
-78:                                               ; preds = %75
-  %79 = load i32, ptr %2, align 4
-  %80 = icmp eq i32 %79, 5
-  br i1 %80, label %81, label %82
+79:                                               ; preds = %75
+  call void @print(ptr noundef @.str.17)
+  br label %81
 
-81:                                               ; preds = %78
+80:                                               ; preds = %75
+  call void @print(ptr noundef @.str.18)
+  br label %81
+
+81:                                               ; preds = %80, %79
+  br label %82
+
+82:                                               ; preds = %81
+  br label %83
+
+83:                                               ; preds = %82
+  %84 = load i32, ptr %4, align 4
+  %85 = add nsw i32 %84, -1
+  store i32 %85, ptr %4, align 4
+  %86 = icmp eq i32 %84, 2
+  br i1 %86, label %87, label %88
+
+87:                                               ; preds = %83
+  call void @print(ptr noundef @.str.19)
+  br label %89
+
+88:                                               ; preds = %83
+  call void @print(ptr noundef @.str.20)
+  br label %89
+
+89:                                               ; preds = %88, %87
+  br label %90
+
+90:                                               ; preds = %89
+  br label %91
+
+91:                                               ; preds = %90
+  %92 = load i32, ptr %4, align 4
+  %93 = add nsw i32 %92, -1
+  store i32 %93, ptr %4, align 4
+  %94 = icmp eq i32 %93, 0
+  br i1 %94, label %95, label %96
+
+95:                                               ; preds = %91
+  call void @print(ptr noundef @.str.21)
+  br label %97
+
+96:                                               ; preds = %91
+  call void @print(ptr noundef @.str.22)
+  br label %97
+
+97:                                               ; preds = %96, %95
+  br label %98
+
+98:                                               ; preds = %97
+  %99 = load i32, ptr %4, align 4
+  %100 = add nsw i32 %99, 5
+  store i32 %100, ptr %4, align 4
+  br label %101
+
+101:                                              ; preds = %98
+  %102 = load i32, ptr %4, align 4
+  %103 = icmp eq i32 %102, 5
+  br i1 %103, label %104, label %105
+
+104:                                              ; preds = %101
   call void @print(ptr noundef @.str.23)
-  br label %83
+  br label %106
 
-82:                                               ; preds = %78
+105:                                              ; preds = %101
   call void @print(ptr noundef @.str.24)
-  br label %83
+  br label %106
 
-83:                                               ; preds = %82, %81
-  br label %84
+106:                                              ; preds = %105, %104
+  br label %107
 
-84:                                               ; preds = %83
-  %85 = load i32, ptr %2, align 4
-  %86 = mul nsw i32 %85, 2
-  store i32 %86, ptr %2, align 4
-  br label %87
+107:                                              ; preds = %106
+  %108 = load i32, ptr %4, align 4
+  %109 = mul nsw i32 %108, 2
+  store i32 %109, ptr %4, align 4
+  br label %110
 
-87:                                               ; preds = %84
-  %88 = load i32, ptr %2, align 4
-  %89 = icmp eq i32 %88, 10
-  br i1 %89, label %90, label %91
+110:                                              ; preds = %107
+  %111 = load i32, ptr %4, align 4
+  %112 = icmp eq i32 %111, 10
+  br i1 %112, label %113, label %114
 
-90:                                               ; preds = %87
+113:                                              ; preds = %110
   call void @print(ptr noundef @.str.25)
-  br label %92
+  br label %115
 
-91:                                               ; preds = %87
+114:                                              ; preds = %110
   call void @print(ptr noundef @.str.26)
-  br label %92
+  br label %115
 
-92:                                               ; preds = %91, %90
-  br label %93
+115:                                              ; preds = %114, %113
+  br label %116
 
-93:                                               ; preds = %92
-  %94 = load i32, ptr %2, align 4
-  %95 = sdiv i32 %94, 2
-  store i32 %95, ptr %2, align 4
-  br label %96
+116:                                              ; preds = %115
+  %117 = load i32, ptr %4, align 4
+  %118 = sdiv i32 %117, 2
+  store i32 %118, ptr %4, align 4
+  br label %119
 
-96:                                               ; preds = %93
-  %97 = load i32, ptr %2, align 4
-  %98 = icmp eq i32 %97, 5
-  br i1 %98, label %99, label %100
+119:                                              ; preds = %116
+  %120 = load i32, ptr %4, align 4
+  %121 = icmp eq i32 %120, 5
+  br i1 %121, label %122, label %123
 
-99:                                               ; preds = %96
+122:                                              ; preds = %119
   call void @print(ptr noundef @.str.27)
-  br label %101
+  br label %124
 
-100:                                              ; preds = %96
+123:                                              ; preds = %119
   call void @print(ptr noundef @.str.28)
-  br label %101
+  br label %124
 
-101:                                              ; preds = %100, %99
-  br label %102
+124:                                              ; preds = %123, %122
+  br label %125
 
-102:                                              ; preds = %101
-  %103 = load i32, ptr %2, align 4
-  %104 = srem i32 %103, 3
-  store i32 %104, ptr %2, align 4
-  br label %105
+125:                                              ; preds = %124
+  %126 = load i32, ptr %4, align 4
+  %127 = srem i32 %126, 3
+  store i32 %127, ptr %4, align 4
+  br label %128
 
-105:                                              ; preds = %102
-  %106 = load i32, ptr %2, align 4
-  %107 = icmp eq i32 %106, 2
-  br i1 %107, label %108, label %109
+128:                                              ; preds = %125
+  %129 = load i32, ptr %4, align 4
+  %130 = icmp eq i32 %129, 2
+  br i1 %130, label %131, label %132
 
-108:                                              ; preds = %105
+131:                                              ; preds = %128
   call void @print(ptr noundef @.str.29)
-  br label %110
+  br label %133
 
-109:                                              ; preds = %105
+132:                                              ; preds = %128
   call void @print(ptr noundef @.str.30)
-  br label %110
+  br label %133
 
-110:                                              ; preds = %109, %108
-  br label %111
+133:                                              ; preds = %132, %131
+  br label %134
 
-111:                                              ; preds = %110
-  store i32 0, ptr %3, align 4
-  %112 = load i32, ptr %3, align 4
-  %113 = icmp eq i32 %112, 0
-  br i1 %113, label %114, label %115
+134:                                              ; preds = %133
+  store i32 0, ptr %5, align 4
+  %135 = load i32, ptr %5, align 4
+  %136 = icmp eq i32 %135, 0
+  br i1 %136, label %137, label %138
 
-114:                                              ; preds = %111
-  store i32 1, ptr %3, align 4
-  br label %116
+137:                                              ; preds = %134
+  store i32 1, ptr %5, align 4
+  br label %139
 
-115:                                              ; preds = %111
-  store i32 -1, ptr %3, align 4
-  br label %116
+138:                                              ; preds = %134
+  store i32 -1, ptr %5, align 4
+  br label %139
 
-116:                                              ; preds = %115, %114
-  br label %117
+139:                                              ; preds = %138, %137
+  br label %140
 
-117:                                              ; preds = %116
-  %118 = load i32, ptr %3, align 4
-  %119 = icmp eq i32 %118, 1
-  br i1 %119, label %120, label %121
+140:                                              ; preds = %139
+  %141 = load i32, ptr %5, align 4
+  %142 = icmp eq i32 %141, 1
+  br i1 %142, label %143, label %144
 
-120:                                              ; preds = %117
+143:                                              ; preds = %140
   call void @print(ptr noundef @.str.31)
-  br label %122
+  br label %145
 
-121:                                              ; preds = %117
+144:                                              ; preds = %140
   call void @print(ptr noundef @.str.32)
-  br label %122
+  br label %145
 
-122:                                              ; preds = %121, %120
-  br label %123
+145:                                              ; preds = %144, %143
+  br label %146
 
-123:                                              ; preds = %122
-  %124 = load i32, ptr %3, align 4
-  switch i32 %124, label %127 [
-    i32 0, label %125
-    i32 1, label %126
+146:                                              ; preds = %145
+  %147 = load i32, ptr %5, align 4
+  switch i32 %147, label %150 [
+    i32 0, label %148
+    i32 1, label %149
   ]
 
-125:                                              ; preds = %123
-  store i32 10, ptr %3, align 4
-  br label %128
+148:                                              ; preds = %146
+  store i32 10, ptr %5, align 4
+  br label %151
 
-126:                                              ; preds = %123
-  store i32 20, ptr %3, align 4
-  br label %128
+149:                                              ; preds = %146
+  store i32 20, ptr %5, align 4
+  br label %151
 
-127:                                              ; preds = %123
-  store i32 -1, ptr %3, align 4
-  br label %128
+150:                                              ; preds = %146
+  store i32 -1, ptr %5, align 4
+  br label %151
 
-128:                                              ; preds = %127, %126, %125
-  br label %129
+151:                                              ; preds = %150, %149, %148
+  br label %152
 
-129:                                              ; preds = %128
-  %130 = load i32, ptr %3, align 4
-  %131 = icmp eq i32 %130, 20
-  br i1 %131, label %132, label %133
+152:                                              ; preds = %151
+  %153 = load i32, ptr %5, align 4
+  %154 = icmp eq i32 %153, 20
+  br i1 %154, label %155, label %156
 
-132:                                              ; preds = %129
+155:                                              ; preds = %152
   call void @print(ptr noundef @.str.33)
-  br label %134
+  br label %157
 
-133:                                              ; preds = %129
+156:                                              ; preds = %152
   call void @print(ptr noundef @.str.34)
-  br label %134
+  br label %157
 
-134:                                              ; preds = %133, %132
-  br label %135
+157:                                              ; preds = %156, %155
+  br label %158
 
-135:                                              ; preds = %134
-  store i32 0, ptr %3, align 4
-  store i32 0, ptr %4, align 4
-  br label %136
+158:                                              ; preds = %157
+  store i32 0, ptr %5, align 4
+  store i32 0, ptr %6, align 4
+  br label %159
 
-136:                                              ; preds = %143, %135
-  %137 = load i32, ptr %4, align 4
-  %138 = icmp slt i32 %137, 3
-  br i1 %138, label %139, label %146
+159:                                              ; preds = %166, %158
+  %160 = load i32, ptr %6, align 4
+  %161 = icmp slt i32 %160, 3
+  br i1 %161, label %162, label %169
 
-139:                                              ; preds = %136
-  %140 = load i32, ptr %4, align 4
-  %141 = load i32, ptr %3, align 4
-  %142 = add nsw i32 %141, %140
-  store i32 %142, ptr %3, align 4
-  br label %143
+162:                                              ; preds = %159
+  %163 = load i32, ptr %6, align 4
+  %164 = load i32, ptr %5, align 4
+  %165 = add nsw i32 %164, %163
+  store i32 %165, ptr %5, align 4
+  br label %166
 
-143:                                              ; preds = %139
-  %144 = load i32, ptr %4, align 4
-  %145 = add nsw i32 %144, 1
-  store i32 %145, ptr %4, align 4
-  br label %136, !llvm.loop !5
+166:                                              ; preds = %162
+  %167 = load i32, ptr %6, align 4
+  %168 = add nsw i32 %167, 1
+  store i32 %168, ptr %6, align 4
+  br label %159, !llvm.loop !5
 
-146:                                              ; preds = %136
-  br label %147
+169:                                              ; preds = %159
+  br label %170
 
-147:                                              ; preds = %146
-  %148 = load i32, ptr %3, align 4
-  %149 = icmp eq i32 %148, 3
-  br i1 %149, label %150, label %151
+170:                                              ; preds = %169
+  %171 = load i32, ptr %5, align 4
+  %172 = icmp eq i32 %171, 3
+  br i1 %172, label %173, label %174
 
-150:                                              ; preds = %147
+173:                                              ; preds = %170
   call void @print(ptr noundef @.str.35)
-  br label %152
-
-151:                                              ; preds = %147
-  call void @print(ptr noundef @.str.36)
-  br label %152
-
-152:                                              ; preds = %151, %150
-  br label %153
-
-153:                                              ; preds = %152
-  store i32 0, ptr %3, align 4
-  br label %154
-
-154:                                              ; preds = %157, %153
-  %155 = load i32, ptr %3, align 4
-  %156 = icmp slt i32 %155, 3
-  br i1 %156, label %157, label %160
-
-157:                                              ; preds = %154
-  %158 = load i32, ptr %3, align 4
-  %159 = add nsw i32 %158, 1
-  store i32 %159, ptr %3, align 4
-  br label %154, !llvm.loop !7
-
-160:                                              ; preds = %154
-  br label %161
-
-161:                                              ; preds = %160
-  %162 = load i32, ptr %3, align 4
-  %163 = icmp eq i32 %162, 3
-  br i1 %163, label %164, label %165
-
-164:                                              ; preds = %161
-  call void @print(ptr noundef @.str.37)
-  br label %166
-
-165:                                              ; preds = %161
-  call void @print(ptr noundef @.str.38)
-  br label %166
-
-166:                                              ; preds = %165, %164
-  br label %167
-
-167:                                              ; preds = %166
-  store i32 0, ptr %3, align 4
-  br label %168
-
-168:                                              ; preds = %171, %167
-  %169 = load i32, ptr %3, align 4
-  %170 = add nsw i32 %169, 1
-  store i32 %170, ptr %3, align 4
-  br label %171
-
-171:                                              ; preds = %168
-  %172 = load i32, ptr %3, align 4
-  %173 = icmp slt i32 %172, 3
-  br i1 %173, label %168, label %174, !llvm.loop !8
-
-174:                                              ; preds = %171
   br label %175
 
-175:                                              ; preds = %174
-  %176 = load i32, ptr %3, align 4
-  %177 = icmp eq i32 %176, 3
-  br i1 %177, label %178, label %179
+174:                                              ; preds = %170
+  call void @print(ptr noundef @.str.36)
+  br label %175
 
-178:                                              ; preds = %175
-  call void @print(ptr noundef @.str.39)
-  br label %180
+175:                                              ; preds = %174, %173
+  br label %176
 
-179:                                              ; preds = %175
-  call void @print(ptr noundef @.str.40)
-  br label %180
-
-180:                                              ; preds = %179, %178
-  br label %181
-
-181:                                              ; preds = %180
-  store i32 0, ptr %3, align 4
+176:                                              ; preds = %175
   store i32 0, ptr %5, align 4
-  br label %182
+  br label %177
 
-182:                                              ; preds = %196, %181
-  %183 = load i32, ptr %5, align 4
-  %184 = icmp slt i32 %183, 5
-  br i1 %184, label %185, label %199
+177:                                              ; preds = %180, %176
+  %178 = load i32, ptr %5, align 4
+  %179 = icmp slt i32 %178, 3
+  br i1 %179, label %180, label %183
 
-185:                                              ; preds = %182
-  %186 = load i32, ptr %5, align 4
-  %187 = icmp eq i32 %186, 2
-  br i1 %187, label %188, label %189
+180:                                              ; preds = %177
+  %181 = load i32, ptr %5, align 4
+  %182 = add nsw i32 %181, 1
+  store i32 %182, ptr %5, align 4
+  br label %177, !llvm.loop !7
 
-188:                                              ; preds = %185
-  br label %196
+183:                                              ; preds = %177
+  br label %184
 
-189:                                              ; preds = %185
-  %190 = load i32, ptr %5, align 4
-  %191 = icmp eq i32 %190, 4
-  br i1 %191, label %192, label %193
+184:                                              ; preds = %183
+  %185 = load i32, ptr %5, align 4
+  %186 = icmp eq i32 %185, 3
+  br i1 %186, label %187, label %188
 
-192:                                              ; preds = %189
-  br label %199
+187:                                              ; preds = %184
+  call void @print(ptr noundef @.str.37)
+  br label %189
 
-193:                                              ; preds = %189
-  %194 = load i32, ptr %3, align 4
-  %195 = add nsw i32 %194, 1
-  store i32 %195, ptr %3, align 4
-  br label %196
+188:                                              ; preds = %184
+  call void @print(ptr noundef @.str.38)
+  br label %189
 
-196:                                              ; preds = %193, %188
-  %197 = load i32, ptr %5, align 4
-  %198 = add nsw i32 %197, 1
-  store i32 %198, ptr %5, align 4
-  br label %182, !llvm.loop !9
+189:                                              ; preds = %188, %187
+  br label %190
 
-199:                                              ; preds = %192, %182
-  br label %200
+190:                                              ; preds = %189
+  store i32 0, ptr %5, align 4
+  br label %191
 
-200:                                              ; preds = %199
-  %201 = load i32, ptr %3, align 4
-  %202 = icmp eq i32 %201, 3
-  br i1 %202, label %203, label %204
+191:                                              ; preds = %194, %190
+  %192 = load i32, ptr %5, align 4
+  %193 = add nsw i32 %192, 1
+  store i32 %193, ptr %5, align 4
+  br label %194
 
-203:                                              ; preds = %200
+194:                                              ; preds = %191
+  %195 = load i32, ptr %5, align 4
+  %196 = icmp slt i32 %195, 3
+  br i1 %196, label %191, label %197, !llvm.loop !8
+
+197:                                              ; preds = %194
+  br label %198
+
+198:                                              ; preds = %197
+  %199 = load i32, ptr %5, align 4
+  %200 = icmp eq i32 %199, 3
+  br i1 %200, label %201, label %202
+
+201:                                              ; preds = %198
+  call void @print(ptr noundef @.str.39)
+  br label %203
+
+202:                                              ; preds = %198
+  call void @print(ptr noundef @.str.40)
+  br label %203
+
+203:                                              ; preds = %202, %201
+  br label %204
+
+204:                                              ; preds = %203
+  store i32 0, ptr %5, align 4
+  store i32 0, ptr %7, align 4
+  br label %205
+
+205:                                              ; preds = %219, %204
+  %206 = load i32, ptr %7, align 4
+  %207 = icmp slt i32 %206, 5
+  br i1 %207, label %208, label %222
+
+208:                                              ; preds = %205
+  %209 = load i32, ptr %7, align 4
+  %210 = icmp eq i32 %209, 2
+  br i1 %210, label %211, label %212
+
+211:                                              ; preds = %208
+  br label %219
+
+212:                                              ; preds = %208
+  %213 = load i32, ptr %7, align 4
+  %214 = icmp eq i32 %213, 4
+  br i1 %214, label %215, label %216
+
+215:                                              ; preds = %212
+  br label %222
+
+216:                                              ; preds = %212
+  %217 = load i32, ptr %5, align 4
+  %218 = add nsw i32 %217, 1
+  store i32 %218, ptr %5, align 4
+  br label %219
+
+219:                                              ; preds = %216, %211
+  %220 = load i32, ptr %7, align 4
+  %221 = add nsw i32 %220, 1
+  store i32 %221, ptr %7, align 4
+  br label %205, !llvm.loop !9
+
+222:                                              ; preds = %215, %205
+  br label %223
+
+223:                                              ; preds = %222
+  %224 = load i32, ptr %5, align 4
+  %225 = icmp eq i32 %224, 3
+  br i1 %225, label %226, label %227
+
+226:                                              ; preds = %223
   call void @print(ptr noundef @.str.41)
-  br label %205
-
-204:                                              ; preds = %200
-  call void @print(ptr noundef @.str.42)
-  br label %205
-
-205:                                              ; preds = %204, %203
-  br label %206
-
-206:                                              ; preds = %205
-  store i32 0, ptr %3, align 4
-  br label %207
-
-207:                                              ; preds = %210, %206
-  %208 = load i32, ptr %3, align 4
-  %209 = icmp slt i32 %208, 2
-  br i1 %209, label %210, label %213
-
-210:                                              ; preds = %207
-  %211 = load i32, ptr %3, align 4
-  %212 = add nsw i32 %211, 1
-  store i32 %212, ptr %3, align 4
-  br label %207
-
-213:                                              ; preds = %207
-  br label %214
-
-214:                                              ; preds = %213
-  %215 = load i32, ptr %3, align 4
-  %216 = icmp eq i32 %215, 2
-  br i1 %216, label %217, label %218
-
-217:                                              ; preds = %214
-  call void @print(ptr noundef @.str.43)
-  br label %219
-
-218:                                              ; preds = %214
-  call void @print(ptr noundef @.str.44)
-  br label %219
-
-219:                                              ; preds = %218, %217
-  br label %220
-
-220:                                              ; preds = %219
-  br label %221
-
-221:                                              ; preds = %220
-  %222 = load i32, ptr @g_int, align 4
-  %223 = icmp eq i32 %222, 42
-  br i1 %223, label %224, label %225
-
-224:                                              ; preds = %221
-  call void @print(ptr noundef @.str.45)
-  br label %226
-
-225:                                              ; preds = %221
-  call void @print(ptr noundef @.str.46)
-  br label %226
-
-226:                                              ; preds = %225, %224
-  br label %227
-
-227:                                              ; preds = %226
   br label %228
 
-228:                                              ; preds = %227
-  %229 = load i32, ptr @s_int, align 4
-  %230 = icmp eq i32 %229, -1
-  br i1 %230, label %231, label %232
+227:                                              ; preds = %223
+  call void @print(ptr noundef @.str.42)
+  br label %228
 
-231:                                              ; preds = %228
-  call void @print(ptr noundef @.str.47)
-  br label %233
+228:                                              ; preds = %227, %226
+  br label %229
 
-232:                                              ; preds = %228
-  call void @print(ptr noundef @.str.48)
-  br label %233
+229:                                              ; preds = %228
+  store i32 0, ptr %5, align 4
+  br label %230
 
-233:                                              ; preds = %232, %231
-  br label %234
+230:                                              ; preds = %233, %229
+  %231 = load i32, ptr %5, align 4
+  %232 = icmp slt i32 %231, 2
+  br i1 %232, label %233, label %236
 
-234:                                              ; preds = %233
-  br label %235
+233:                                              ; preds = %230
+  %234 = load i32, ptr %5, align 4
+  %235 = add nsw i32 %234, 1
+  store i32 %235, ptr %5, align 4
+  br label %230
 
-235:                                              ; preds = %234
-  %236 = load i32, ptr @main.local_static, align 4
-  %237 = icmp eq i32 %236, 5
-  br i1 %237, label %238, label %239
+236:                                              ; preds = %230
+  br label %237
 
-238:                                              ; preds = %235
-  call void @print(ptr noundef @.str.49)
-  br label %240
+237:                                              ; preds = %236
+  %238 = load i32, ptr %5, align 4
+  %239 = icmp eq i32 %238, 2
+  br i1 %239, label %240, label %241
 
-239:                                              ; preds = %235
-  call void @print(ptr noundef @.str.50)
-  br label %240
-
-240:                                              ; preds = %239, %238
-  br label %241
-
-241:                                              ; preds = %240
-  store i32 100, ptr %6, align 4
+240:                                              ; preds = %237
+  call void @print(ptr noundef @.str.43)
   br label %242
 
-242:                                              ; preds = %241
-  %243 = load i32, ptr %6, align 4
-  %244 = icmp eq i32 %243, 100
-  br i1 %244, label %245, label %246
+241:                                              ; preds = %237
+  call void @print(ptr noundef @.str.44)
+  br label %242
 
-245:                                              ; preds = %242
-  call void @print(ptr noundef @.str.51)
-  br label %247
+242:                                              ; preds = %241, %240
+  br label %243
 
-246:                                              ; preds = %242
-  call void @print(ptr noundef @.str.52)
-  br label %247
+243:                                              ; preds = %242
+  br label %244
 
-247:                                              ; preds = %246, %245
-  br label %248
+244:                                              ; preds = %243
+  %245 = load i32, ptr @g_int, align 4
+  %246 = icmp eq i32 %245, 42
+  br i1 %246, label %247, label %248
 
-248:                                              ; preds = %247
-  store volatile i32 7, ptr @v_int, align 4
+247:                                              ; preds = %244
+  call void @print(ptr noundef @.str.45)
   br label %249
 
-249:                                              ; preds = %248
-  %250 = load volatile i32, ptr @v_int, align 4
-  %251 = icmp eq i32 %250, 7
-  br i1 %251, label %252, label %253
+248:                                              ; preds = %244
+  call void @print(ptr noundef @.str.46)
+  br label %249
 
-252:                                              ; preds = %249
-  call void @print(ptr noundef @.str.53)
-  br label %254
+249:                                              ; preds = %248, %247
+  br label %250
 
-253:                                              ; preds = %249
-  call void @print(ptr noundef @.str.54)
-  br label %254
+250:                                              ; preds = %249
+  br label %251
 
-254:                                              ; preds = %253, %252
-  br label %255
+251:                                              ; preds = %250
+  %252 = load i32, ptr @s_int, align 4
+  %253 = icmp eq i32 %252, -1
+  br i1 %253, label %254, label %255
 
-255:                                              ; preds = %254
-  store i32 2, ptr %7, align 4
+254:                                              ; preds = %251
+  call void @print(ptr noundef @.str.47)
   br label %256
 
-256:                                              ; preds = %255
-  %257 = load i32, ptr %7, align 4
-  %258 = icmp eq i32 %257, 2
-  br i1 %258, label %259, label %260
+255:                                              ; preds = %251
+  call void @print(ptr noundef @.str.48)
+  br label %256
 
-259:                                              ; preds = %256
-  call void @print(ptr noundef @.str.55)
-  br label %261
+256:                                              ; preds = %255, %254
+  br label %257
 
-260:                                              ; preds = %256
-  call void @print(ptr noundef @.str.56)
-  br label %261
+257:                                              ; preds = %256
+  br label %258
 
-261:                                              ; preds = %260, %259
-  br label %262
+258:                                              ; preds = %257
+  %259 = load i32, ptr @main.local_static, align 4
+  %260 = icmp eq i32 %259, 5
+  br i1 %260, label %261, label %262
 
-262:                                              ; preds = %261
-  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %8, ptr align 4 @__const.main.st, i64 8, i1 false)
+261:                                              ; preds = %258
+  call void @print(ptr noundef @.str.49)
   br label %263
 
-263:                                              ; preds = %262
-  %264 = getelementptr inbounds %struct.MyStruct, ptr %8, i32 0, i32 0
-  %265 = load i32, ptr %264, align 4
-  %266 = icmp eq i32 %265, 1
-  br i1 %266, label %267, label %279
+262:                                              ; preds = %258
+  call void @print(ptr noundef @.str.50)
+  br label %263
 
-267:                                              ; preds = %263
-  %268 = getelementptr inbounds %struct.MyStruct, ptr %8, i32 0, i32 1
-  %269 = load i32, ptr %268, align 4
-  %270 = and i32 %269, 7
-  %271 = icmp eq i32 %270, 3
-  br i1 %271, label %272, label %279
+263:                                              ; preds = %262, %261
+  br label %264
 
-272:                                              ; preds = %267
-  %273 = getelementptr inbounds %struct.MyStruct, ptr %8, i32 0, i32 1
-  %274 = load i32, ptr %273, align 4
-  %275 = shl i32 %274, 24
-  %276 = ashr i32 %275, 27
-  %277 = icmp eq i32 %276, -5
-  br i1 %277, label %278, label %279
+264:                                              ; preds = %263
+  store i32 100, ptr %8, align 4
+  br label %265
 
-278:                                              ; preds = %272
+265:                                              ; preds = %264
+  %266 = load i32, ptr %8, align 4
+  %267 = icmp eq i32 %266, 100
+  br i1 %267, label %268, label %269
+
+268:                                              ; preds = %265
+  call void @print(ptr noundef @.str.51)
+  br label %270
+
+269:                                              ; preds = %265
+  call void @print(ptr noundef @.str.52)
+  br label %270
+
+270:                                              ; preds = %269, %268
+  br label %271
+
+271:                                              ; preds = %270
+  store volatile i32 7, ptr @v_int, align 4
+  br label %272
+
+272:                                              ; preds = %271
+  %273 = load volatile i32, ptr @v_int, align 4
+  %274 = icmp eq i32 %273, 7
+  br i1 %274, label %275, label %276
+
+275:                                              ; preds = %272
+  call void @print(ptr noundef @.str.53)
+  br label %277
+
+276:                                              ; preds = %272
+  call void @print(ptr noundef @.str.54)
+  br label %277
+
+277:                                              ; preds = %276, %275
+  br label %278
+
+278:                                              ; preds = %277
+  store i32 2, ptr %9, align 4
+  br label %279
+
+279:                                              ; preds = %278
+  %280 = load i32, ptr %9, align 4
+  %281 = icmp eq i32 %280, 2
+  br i1 %281, label %282, label %283
+
+282:                                              ; preds = %279
+  call void @print(ptr noundef @.str.55)
+  br label %284
+
+283:                                              ; preds = %279
+  call void @print(ptr noundef @.str.56)
+  br label %284
+
+284:                                              ; preds = %283, %282
+  br label %285
+
+285:                                              ; preds = %284
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %10, ptr align 4 @__const.main.st, i64 8, i1 false)
+  br label %286
+
+286:                                              ; preds = %285
+  %287 = getelementptr inbounds %struct.MyStruct, ptr %10, i32 0, i32 0
+  %288 = load i32, ptr %287, align 4
+  %289 = icmp eq i32 %288, 1
+  br i1 %289, label %290, label %302
+
+290:                                              ; preds = %286
+  %291 = getelementptr inbounds %struct.MyStruct, ptr %10, i32 0, i32 1
+  %292 = load i32, ptr %291, align 4
+  %293 = and i32 %292, 7
+  %294 = icmp eq i32 %293, 3
+  br i1 %294, label %295, label %302
+
+295:                                              ; preds = %290
+  %296 = getelementptr inbounds %struct.MyStruct, ptr %10, i32 0, i32 1
+  %297 = load i32, ptr %296, align 4
+  %298 = shl i32 %297, 24
+  %299 = ashr i32 %298, 27
+  %300 = icmp eq i32 %299, -5
+  br i1 %300, label %301, label %302
+
+301:                                              ; preds = %295
   call void @print(ptr noundef @.str.57)
-  br label %280
+  br label %303
 
-279:                                              ; preds = %272, %267, %263
+302:                                              ; preds = %295, %290, %286
   call void @print(ptr noundef @.str.58)
-  br label %280
+  br label %303
 
-280:                                              ; preds = %279, %278
-  br label %281
+303:                                              ; preds = %302, %301
+  br label %304
 
-281:                                              ; preds = %280
-  store i32 1094861636, ptr %9, align 4
-  br label %282
+304:                                              ; preds = %303
+  store i32 1094861636, ptr %11, align 4
+  br label %305
 
-282:                                              ; preds = %281
-  %283 = getelementptr inbounds [4 x i8], ptr %9, i64 0, i64 0
-  %284 = load i8, ptr %283, align 4
-  %285 = sext i8 %284 to i32
-  %286 = icmp eq i32 %285, 68
-  br i1 %286, label %287, label %288
+305:                                              ; preds = %304
+  %306 = getelementptr inbounds [4 x i8], ptr %11, i64 0, i64 0
+  %307 = load i8, ptr %306, align 4
+  %308 = sext i8 %307 to i32
+  %309 = icmp eq i32 %308, 68
+  br i1 %309, label %310, label %311
 
-287:                                              ; preds = %282
+310:                                              ; preds = %305
   call void @print(ptr noundef @.str.59)
-  br label %289
+  br label %312
 
-288:                                              ; preds = %282
+311:                                              ; preds = %305
   call void @print(ptr noundef @.str.60)
-  br label %289
+  br label %312
 
-289:                                              ; preds = %288, %287
-  br label %290
+312:                                              ; preds = %311, %310
+  br label %313
 
-290:                                              ; preds = %289
-  store i32 5, ptr %10, align 4
-  call void @pointer_test(ptr noundef %10)
-  br label %291
+313:                                              ; preds = %312
+  store i32 5, ptr %12, align 4
+  call void @pointer_test(ptr noundef %12)
+  br label %314
 
-291:                                              ; preds = %290
-  %292 = load i32, ptr %10, align 4
-  %293 = icmp eq i32 %292, 15
-  br i1 %293, label %294, label %295
+314:                                              ; preds = %313
+  %315 = load i32, ptr %12, align 4
+  %316 = icmp eq i32 %315, 15
+  br i1 %316, label %317, label %318
 
-294:                                              ; preds = %291
+317:                                              ; preds = %314
   call void @print(ptr noundef @.str.61)
-  br label %296
+  br label %319
 
-295:                                              ; preds = %291
+318:                                              ; preds = %314
   call void @print(ptr noundef @.str.62)
-  br label %296
+  br label %319
 
-296:                                              ; preds = %295, %294
-  br label %297
+319:                                              ; preds = %318, %317
+  br label %320
 
-297:                                              ; preds = %296
-  call void @llvm.memcpy.p0.p0.i64(ptr align 16 %11, ptr align 16 @__const.main.arr, i64 24, i1 false)
-  %298 = getelementptr inbounds [2 x [3 x i32]], ptr %11, i64 0, i64 0
-  call void @array_test(ptr noundef %298)
-  br label %299
+320:                                              ; preds = %319
+  call void @llvm.memcpy.p0.p0.i64(ptr align 16 %13, ptr align 16 @__const.main.arr, i64 24, i1 false)
+  %321 = getelementptr inbounds [2 x [3 x i32]], ptr %13, i64 0, i64 0
+  call void @array_test(ptr noundef %321)
+  br label %322
 
-299:                                              ; preds = %297
-  %300 = getelementptr inbounds [2 x [3 x i32]], ptr %11, i64 0, i64 1
-  %301 = getelementptr inbounds [3 x i32], ptr %300, i64 0, i64 2
-  %302 = load i32, ptr %301, align 4
-  %303 = icmp eq i32 %302, 99
-  br i1 %303, label %304, label %305
+322:                                              ; preds = %320
+  %323 = getelementptr inbounds [2 x [3 x i32]], ptr %13, i64 0, i64 1
+  %324 = getelementptr inbounds [3 x i32], ptr %323, i64 0, i64 2
+  %325 = load i32, ptr %324, align 4
+  %326 = icmp eq i32 %325, 99
+  br i1 %326, label %327, label %328
 
-304:                                              ; preds = %299
+327:                                              ; preds = %322
   call void @print(ptr noundef @.str.63)
-  br label %306
+  br label %329
 
-305:                                              ; preds = %299
+328:                                              ; preds = %322
   call void @print(ptr noundef @.str.64)
-  br label %306
+  br label %329
 
-306:                                              ; preds = %305, %304
-  br label %307
+329:                                              ; preds = %328, %327
+  br label %330
 
-307:                                              ; preds = %306
-  %308 = load ptr, ptr @fp_add, align 8
-  %309 = call i32 %308(i32 noundef 3, i32 noundef 4)
-  store i32 %309, ptr %12, align 4
-  br label %310
+330:                                              ; preds = %329
+  %331 = load ptr, ptr @fp_add, align 8
+  %332 = call i32 %331(i32 noundef 3, i32 noundef 4)
+  store i32 %332, ptr %14, align 4
+  br label %333
 
-310:                                              ; preds = %307
-  %311 = load i32, ptr %12, align 4
-  %312 = icmp eq i32 %311, 7
-  br i1 %312, label %313, label %314
+333:                                              ; preds = %330
+  %334 = load i32, ptr %14, align 4
+  %335 = icmp eq i32 %334, 7
+  br i1 %335, label %336, label %337
 
-313:                                              ; preds = %310
+336:                                              ; preds = %333
   call void @print(ptr noundef @.str.65)
-  br label %315
+  br label %338
 
-314:                                              ; preds = %310
+337:                                              ; preds = %333
   call void @print(ptr noundef @.str.66)
-  br label %315
+  br label %338
 
-315:                                              ; preds = %314, %313
-  br label %316
+338:                                              ; preds = %337, %336
+  br label %339
 
-316:                                              ; preds = %315
+339:                                              ; preds = %338
   call void @print(ptr noundef @.str.67)
   call void @print(ptr noundef @.str.68)
   call void @print(ptr noundef @.str.69)
-  %317 = call i32 @factorial(i32 noundef 5)
-  store i32 %317, ptr %13, align 4
-  br label %318
+  %340 = call i32 @factorial(i32 noundef 5)
+  store i32 %340, ptr %15, align 4
+  br label %341
 
-318:                                              ; preds = %316
-  %319 = load i32, ptr %13, align 4
-  %320 = icmp eq i32 %319, 120
-  br i1 %320, label %321, label %322
+341:                                              ; preds = %339
+  %342 = load i32, ptr %15, align 4
+  %343 = icmp eq i32 %342, 120
+  br i1 %343, label %344, label %345
 
-321:                                              ; preds = %318
+344:                                              ; preds = %341
   call void @print(ptr noundef @.str.70)
-  br label %323
+  br label %346
 
-322:                                              ; preds = %318
+345:                                              ; preds = %341
   call void @print(ptr noundef @.str.71)
-  br label %323
+  br label %346
 
-323:                                              ; preds = %322, %321
-  br label %324
+346:                                              ; preds = %345, %344
+  br label %347
 
-324:                                              ; preds = %323
+347:                                              ; preds = %346
   call void @print(ptr noundef @.str.72)
   call void @print(ptr noundef @.str.73)
   ret i32 0

@@ -6,7 +6,7 @@
 
 #include <include/TemplateManager.h>
 
-inja::Environment TemplateManager::GetEnv() {
+inja::Environment &TemplateManager::GetEnv() {
     return _env;
 }
 

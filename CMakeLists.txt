@@ -32,6 +32,8 @@ add_executable(PPLForge forge/main.cpp
         forge/src/translator/Function.cpp
         forge/include/TemplateManager.h
         forge/src/TemplateManager.cpp
+        forge/include/translator/BasicBlock.h
+        forge/src/translator/BasicBlock.cpp
 )
 
 target_include_directories(PPLForge SYSTEM PRIVATE

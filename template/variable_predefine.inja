@@ -1,0 +1,4 @@
+﻿// Variable Predefines
+{% for var in vars %}LOCAL {{var}};
+{% endfor %}
+// Predefines end

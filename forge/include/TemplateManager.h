@@ -13,6 +13,7 @@ class TemplateManager {
 public:
     static constexpr const char *Function = "../template/function.inja";
     static constexpr const char *Variable = "../template/variable.inja";
+    static constexpr const char *VariablePredefine = "../template/variable_predefine.inja";
     static constexpr const char *Array = "../template/array.inja";
     static constexpr const char *Args = "../template/args.inja";
 
@@ -21,7 +22,8 @@ public:
      * Getting the environment of the inja lib
      * @return The environment of the inja lib
      */
-    inja::Environment GetEnv();
+    inja::Environment &GetEnv();
+
     /**
      *
      * @param TemplateFile The template file path

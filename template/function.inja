@@ -1,4 +1,11 @@
-﻿{% if export %}EXPORT {% endif %}{{name}}({{args}})
-BEGIN
-    {% for code in codes %}code{% endfor %}
-END
+﻿{% if export %}EXPORT {% endif %}{{name}}({{args}})BEGIN
+LOCAL i_Status_Machine := 0;
+LCOAL i_Last_Status_Machine := i_Status_Machine;
+{{predefine}}
+{{firstBlock}}
+// The status machine
+WHILE TRUE DO
+{% for label in labels %}IF i_Status_Machine == "{{label}}" THEN {{ getLabelCode(label) }} END;
+{% endfor %}
+END;
+END;
