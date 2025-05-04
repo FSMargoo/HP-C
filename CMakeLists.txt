@@ -34,6 +34,10 @@ add_executable(PPLForge forge/main.cpp
         forge/src/TemplateManager.cpp
         forge/include/translator/BasicBlock.h
         forge/src/translator/BasicBlock.cpp
+        forge/include/translator/instruction/BinOp.h
+        forge/src/translator/instruction/BinOp.cpp
+        forge/include/translator/instruction/ResultAnalyze.h
+        forge/src/translator/instruction/ResultAnalyzer.cpp
 )
 
 target_include_directories(PPLForge SYSTEM PRIVATE

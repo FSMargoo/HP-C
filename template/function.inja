@@ -1,6 +1,6 @@
 ﻿{% if export %}EXPORT {% endif %}{{name}}({{args}})BEGIN
 LOCAL i_Status_Machine := 0;
-LCOAL i_Last_Status_Machine := i_Status_Machine;
+LOCAL i_Last_Status_Machine := i_Status_Machine;
 {{predefine}}
 {{firstBlock}}
 // The status machine

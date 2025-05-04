@@ -22,6 +22,11 @@ std::unique_ptr<llvm::Module> LLVMIRParser::Parse(const std::string &File, llvm:
 }
 
 std::string LLVMAnonyExtractor::Extract(const llvm::Value *Value) {
+    // Fallback for the wrong using
+    if (Value->hasName()) {
+        return LLVMNameLegalizer::Legalize(Value->getName().str());
+    }
+
     static std::string buffer;
     static llvm::raw_string_ostream rso(buffer);
 

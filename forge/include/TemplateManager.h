@@ -16,6 +16,7 @@ public:
     static constexpr const char *VariablePredefine = "../template/variable_predefine.inja";
     static constexpr const char *Array = "../template/array.inja";
     static constexpr const char *Args = "../template/args.inja";
+    static constexpr const char *BinaryOperation = "../template/binary_operation.inja";
 
 public:
     /**
