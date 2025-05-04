@@ -45,7 +45,7 @@ std::string FunctionTranslator::Translate(llvm::Function &Function, Context &Con
         return labelCodeMapping[Args.at(0)->get<std::string>()];
     });
 
-    return TemplateManager::Instance().Render(TemplateManager::Function, data);
+    return TemplateManager::Instance().RenderFile(TemplateManager::Function, data);
 }
 
 std::string FunctionTranslator::AnalyzingParameters(llvm::Function &Function) {
@@ -63,11 +63,12 @@ std::string FunctionTranslator::AnalyzingParameters(llvm::Function &Function) {
     data["args"] = args;
     data["num"] = args.size();
 
-    return TemplateManager::Instance().Render(TemplateManager::Args, data);
+    return TemplateManager::Instance().RenderFile(TemplateManager::Args, data);
 }
 
 std::string FunctionTranslator::AnalyzingPreDefines(llvm::Function &Function) {
     inja::json data;
+	data["vars"] = {};
     for (auto &blocks: Function) {
         for (auto &inst: blocks) {
             // Scan for the result variable definition;
@@ -77,7 +78,9 @@ std::string FunctionTranslator::AnalyzingPreDefines(llvm::Function &Function) {
         }
     }
 
-    return TemplateManager::Instance().Render(TemplateManager::VariablePredefine, data);
+	data["hasDefine"] = !data["vars"].empty();
+
+    return TemplateManager::Instance().RenderFile(TemplateManager::VariablePredefine, data);
 }
 
 std::string FunctionTranslator::AnalyzingLabel(llvm::BasicBlock &Block) {

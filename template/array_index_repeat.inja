@@ -1,0 +1,2 @@
+﻿// DO NOT USE THIS INJA FILE FOR FORMATTING
+{ {% for i in range({{size}}) %}{{ element }}{% if loop.index1 < size %}, {% endif %}{% endfor %} }

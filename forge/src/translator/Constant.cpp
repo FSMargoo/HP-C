@@ -54,7 +54,7 @@ std::string ConstantTranslator::Translate(llvm::Constant &Constant, Context &Con
             data["elements"].push_back(Translate(*element, Contxt));
         }
 
-        return TemplateManager::Instance().Render(TemplateManager::Array, data);
+        return TemplateManager::Instance().RenderFile(TemplateManager::Array, data);
     }
 
     // Check for ConstantArray
@@ -66,7 +66,7 @@ std::string ConstantTranslator::Translate(llvm::Constant &Constant, Context &Con
             data["elements"].push_back(Translate(*ca->getOperand(i), Contxt));
         }
 
-        return TemplateManager::Instance().Render(TemplateManager::Array, data);
+        return TemplateManager::Instance().RenderFile(TemplateManager::Array, data);
     }
 
     // Check for global reference
@@ -83,7 +83,7 @@ std::string ConstantTranslator::Translate(llvm::Constant &Constant, Context &Con
             data["elements"].push_back(Translate(*cs->getOperand(i), Contxt));
         }
 
-        return TemplateManager::Instance().Render(TemplateManager::Array, data);
+        return TemplateManager::Instance().RenderFile(TemplateManager::Array, data);
     }
 
     // Check for ConstantVector

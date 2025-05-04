@@ -1,4 +1,4 @@
 ﻿// Variable Predefines
-{% for var in vars %}LOCAL {{var}};
-{% endfor %}
+{% if hasDefine %}{% for var in vars %}LOCAL {{var}};
+{% endfor %}{% endif %}
 // Predefines end

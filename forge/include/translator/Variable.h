@@ -20,9 +20,6 @@ public:
      */
     static std::string GlobalVariableTranslate(llvm::GlobalVariable &Variable, const std::string &Initializer);
 
-    static std::string Translate();
-
-private:
     /**
      * Expanding the llvm::ArrayType object to string
      * @param ArrType The array type pointer
@@ -31,6 +28,7 @@ private:
      */
     static std::pair<std::vector<int>, llvm::Type *> ArrayExpand(
         llvm::ArrayType *ArrType, std::vector<int> Index = {});
+
     /**
      * Expanding the zero-initializer string of the specified index
      * @param Index The index list of the array

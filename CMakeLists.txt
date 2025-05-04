@@ -39,6 +39,10 @@ add_executable(PPLForge forge/main.cpp
         forge/include/translator/instruction/ResultAnalyze.h
         forge/src/translator/instruction/ResultAnalyzer.cpp
         forge/include/translator/instruction/Alloca.h
+        forge/src/translator/instruction/Alloca.cpp
+        forge/src/translator/Type.cpp
+        forge/include/translator/Type.h
+        forge/include/translator/instruction/ICmp.h
 )
 
 target_include_directories(PPLForge SYSTEM PRIVATE

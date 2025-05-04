@@ -13,3 +13,10 @@ std::string ResultVariableAnalyzer::Analyze(llvm::Value *Value) {
 
     return LLVMAnonyExtractor::Extract(Value) + " := ";
 }
+std::string ResultVariableAnalyzer::AnalyzeName(llvm::Value *Value) {
+	if (Value->getType()->isVoidTy()) {
+		return "";
+	}
+
+	return LLVMAnonyExtractor::Extract(Value);
+}

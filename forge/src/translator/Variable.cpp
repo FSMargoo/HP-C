@@ -40,7 +40,7 @@ std::string VariableTranslator::GlobalVariableTranslate(llvm::GlobalVariable &Va
     data["initializer"] = initializer;
     data["isGlobal"] = true;
 
-    return TemplateManager::Instance().Render(TemplateManager::Variable, data);
+    return TemplateManager::Instance().RenderFile(TemplateManager::Variable, data);
 }
 
 std::pair<std::vector<int>, llvm::Type *> VariableTranslator::ArrayExpand(
@@ -68,5 +68,5 @@ std::string VariableTranslator::ArrayZeroInitExpand(std::vector<int> Index) {
         arrayData["elements"].push_back(ArrayZeroInitExpand(Index));
     }
 
-    return TemplateManager::Instance().Render(TemplateManager::Array, arrayData);
+    return TemplateManager::Instance().RenderFile(TemplateManager::Array, arrayData);
 }

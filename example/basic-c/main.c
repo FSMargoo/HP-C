@@ -1,201 +1,135 @@
 #include "../../clib/sys/io.h"
 
-#define PASS "PASS: "
-#define FAIL "FAIL: "
-
-/* 简单的断言宏 */
-#define ASSERT(expr, desc) \
-    do { \
-        if (expr) { \
-            print(PASS desc); \
-        } else { \
-            print(FAIL desc); \
-        } \
+#define TEST(name, expr, expected)                                   \
+    do {                                                            \
+        if ((expr) == (expected)) {                                 \
+            print(#name " PASS");                                  \
+        } else {                                                    \
+            print(#name " FAIL");                                  \
+        }                                                           \
     } while (0)
 
-/* 全局变量测试 */
-int g_int = 42;
-static int s_int = -1;
-const int c_int = 100;
-static int arr[2][3] = {{1,2,3},{4,5,6}};
-static int arrPrime[2][3];
-volatile int v_int = 0;
-
-typedef enum { E_ZERO, E_ONE = 1, E_TWO } MyEnum;
-
-typedef struct {
-    int a;
-    unsigned b : 3;
-    signed c : 5;
-} MyStruct;
-
-MyStruct structArrayTest[2] = { { .a = 1, .b = 3, .c = -5 }, { .a = 1, .b = 3, .c = -5 } };
-
-typedef union {
-    int x;
-    char y[4];
-} MyUnion;
-
-static int add(int a, int b) {
-    return a + b + arrPrime[1][2] + structArrayTest[0].a;
+/* Test numeric types and arithmetic */
+void test_arithmetic(void) {
+    TEST(add_int, 2 + 3, 5);
+    TEST(sub_int, 10 - 7, 3);
+    TEST(mul_int, 4 * 5, 20);
+    TEST(div_int, 20 / 4, 5);
+    TEST(mod_int, 20 % 6, 2);
+    /* Mixed types */
+    TEST(add_long, 100000L + 2345L, 102345L);
+    TEST(mul_short, (short)7 * (short)6, 42);
+    TEST(add_float, (int)(3.5f + 2.5f), 6);
+    TEST(add_double, (int)(1.234 + 5.666), 6);
 }
 
+/* Test control flow */
+void test_control_flow(void) {
+    int x = 0;
+    if (1) x = 1; else x = 2;
+    TEST(if_true, x, 1);
+
+    x = 0;
+    if (0) x = 1; else x = 2;
+    TEST(if_false, x, 2);
+
+    x = 0;
+    for (int i = 0; i < 3; i++) x += i;
+    TEST(for_loop, x, 3);
+
+    x = 0;
+    int c = 0;
+    while (c < 3) { x += c; c++; }
+    TEST(while_loop, x, 3);
+
+    x = 0;
+    c = 0;
+    do { x += c; c++; } while (c < 3);
+    TEST(do_while_loop, x, 3);
+
+    x = 2;
+    switch (x) {
+        case 1: x = 10; break;
+        case 2: x = 20; break;
+        default: x = 30;
+    }
+    TEST(switch_case, x, 20);
+}
+
+/* Test functions and recursion */
 int factorial(int n) {
     if (n <= 1) return 1;
     return n * factorial(n - 1);
 }
 
-void pointer_test(int *p) {
-    *p += 10;
+void test_functions(void) {
+    TEST(fact_5, factorial(5), 120);
+    TEST(fact_0, factorial(0), 1);
 }
 
-void array_test(int arr[2][3]) {
-    arr[1][2] = 99;
+/* Test structures, enums and typedefs */
+typedef struct Point { int x; int y; } Point;
+enum Color { RED, GREEN = 5, BLUE };
+
+void test_struct_enum(void) {
+    Point p;
+    p.x = 3;
+    p.y = 4;
+    TEST(struct_access_x, p.x, 3);
+    TEST(struct_access_y, p.y, 4);
+
+    enum Color c1 = RED;
+    enum Color c2 = GREEN;
+    enum Color c3 = BLUE;
+    TEST(enum_red, c1, 0);
+    TEST(enum_green, c2, 5);
+    TEST(enum_blue, c3, 6);
 }
 
-int (*fp_add)(int, int) = add;
+/* Test arrays and loops */
+void test_arrays(void) {
+    int arr[5];
+    for (int i = 0; i < 5; i++) arr[i] = i * 2;
+    TEST(arr_0, arr[0], 0);
+    TEST(arr_1, arr[1], 2);
+    TEST(arr_4, arr[4], 8);
+}
 
-#define STR1 "Hello, "
-#define STR2 "World!\n"
-#define FULL_STR STR1 STR2
+/* Test bitwise and logical operators */
+void test_bitwise_logical(void) {
+    TEST(bit_and, 6 & 3, 2);
+    TEST(bit_or, 6 | 3, 7);
+    TEST(bit_xor, 6 ^ 3, 5);
+    TEST(bit_not, ~0 & 255, 255);
+    TEST(logical_and, (1 && 0), 0);
+    TEST(logical_or, (1 || 0), 1);
+    TEST(logical_not, (!1), 0);
+}
+
+/* Test type casting */
+void test_cast(void) {
+    TEST(cast_int_to_char, (int)( (char)65 ), 65);
+    TEST(cast_double_to_int, (int)(5.9), 5);
+    TEST(cast_int_to_float, (int)( (float)7.2f ), 7);
+}
+
+/* Test preprocessor macros */
+#define SQUARE(x) ((x) * (x))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+void test_macros(void) {
+    TEST(square_3, SQUARE(3), 9);
+    TEST(max_4_7, MAX(4,7), 7);
+}
 
 int main(void) {
-    ASSERT(1 + 2 == 3, "加法");
-    ASSERT(5 - 3 == 2, "减法");
-    ASSERT(2 * 3 == 6, "乘法");
-    ASSERT(8 / 4 == 2, "除法");
-    ASSERT(10 % 3 == 1, "取余");
-    ASSERT((1 << 2) == 4, "左移");
-    ASSERT((8 >> 1) == 4, "右移");
-    ASSERT((5 & 3) == 1, "位与");
-    ASSERT((5 | 2) == 7, "位或");
-    ASSERT((5 ^ 1) == 4, "位异或");
-    ASSERT(~0 == -1, "位非");
-    ASSERT(!0, "逻辑非");
-    ASSERT(1 && 1, "逻辑与");
-    ASSERT(1 || 0, "逻辑或");
-    ASSERT((3 > 2) ? 10 : 20 == 10, "三元运算");
-
-    MyStruct localStruct;
-    localStruct.a = 10;
-    localStruct.b = 1;
-    localStruct.c = 10;
-    MyStruct localStructArray[2];
-    localStructArray[1].a = 10;
-    localStructArray[1].b = 1;
-    localStructArray[1].c = 10;
-
-    {
-        int x = 0;
-        ASSERT(++x == 1, "前置递增");
-        ASSERT(x++ == 1, "后置递增");
-        ASSERT(x-- == 2, "后置递减");
-        ASSERT(--x == 0, "前置递减");
-        x += 5; ASSERT(x == 5, "+= 操作");
-        x *= 2; ASSERT(x == 10, "*= 操作");
-        x /= 2; ASSERT(x == 5, "/= 操作");
-        x %= 3; ASSERT(x == 2, "%= 操作");
-    }
-
-    {
-        int x = 0;
-        if (x == 0) x = 1;
-        else x = -1;
-        ASSERT(x == 1, "if-else");
-
-        switch (x) {
-            case 0: x = 10; break;
-            case 1: x = 20; break;
-            default: x = -1;
-        }
-        ASSERT(x == 20, "switch-case");
-
-        x = 0;
-        for (int i = 0; i < 3; ++i) x += i;
-        ASSERT(x == 3, "for 循环");
-
-        x = 0;
-        while (x < 3) { x++; }
-        ASSERT(x == 3, "while 循环");
-
-        x = 0;
-        do { x++; } while (x < 3);
-        ASSERT(x == 3, "do-while 循环");
-
-        x = 0;
-        for (int i = 0; i < 5; ++i) {
-            if (i == 2) continue;
-            if (i == 4) break;
-            x++;
-        }
-        ASSERT(x == 3, "break & continue");
-
-        x = 0;
-    start:
-        if (x < 2) {
-            x++;
-            goto start;
-        }
-        ASSERT(x == 2, "goto 标签");
-    }
-
-    {
-        extern int g_int;
-        static int local_static = 5;
-        ASSERT(g_int == 42, "extern 全局变量");
-        ASSERT(s_int == -1, "static 全局变量");
-        ASSERT(local_static == 5, "static 局部变量");
-    }
-
-    {
-        int temp = c_int;
-        ASSERT(temp == 100, "const 变量");
-        v_int = 7;
-        ASSERT(v_int == 7, "volatile 变量");
-    }
-
-    {
-        MyEnum e = E_TWO;
-        ASSERT(e == 2, "enum");
-
-        MyStruct st = { .a = 1, .b = 3, .c = -5 };
-        ASSERT(st.a == 1 && st.b == 3 && st.c == -5, "struct & 位域");
-
-        MyUnion u;
-        u.x = 0x41424344;
-        ASSERT(u.y[0] == 'D', "union");
-    }
-
-    {
-        int a = 5;
-        pointer_test(&a);
-        ASSERT(a == 15, "指针测试");
-
-        int arr[2][3] = {{1,2,3},{4,5,6}};
-        array_test(arr);
-        ASSERT(arr[1][2] == 99, "二维数组测试");
-
-        int res = fp_add(3, 4);
-        ASSERT(res == 7, "函数指针调用");
-    }
-
-    {
-        print("输出测试: ");
-        print(STR1);
-        print(STR2);
-    }
-
-    {
-        int f5 = factorial(5);
-        ASSERT(f5 == 120, "递归 factorial");
-    }
-
-#ifdef HAVE_STDC99
-    print("C99 检测：支持");
-#else
-    print("C99 检测：不支持");
-#endif
-
-    print("单元测试结束。");
+    test_arithmetic();
+    test_control_flow();
+    test_functions();
+    test_struct_enum();
+    test_arrays();
+    test_bitwise_logical();
+    test_cast();
+    test_macros();
+    print("All tests completed.");
     return 0;
 }

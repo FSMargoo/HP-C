@@ -7,6 +7,7 @@
 #include <include/translator/BasicBlock.h>
 
 #include <include/translator/instruction/BinOp.h>
+#include <include/translator/instruction/Alloca.h>
 
 #include <llvm-c/Core.h>
 
@@ -17,7 +18,7 @@ std::string BasicBlockTranslator::Translate(llvm::BasicBlock &Block, Context &Co
             code += BinOpTranslator::Translate(binOp, Contxt) + "\n";
         }
         if (auto alloca = llvm::dyn_cast<llvm::AllocaInst>(&inst)) {
-
+        	code += AllocaTranslator::Translate(alloca, Contxt) + "\n";
         }
     }
 

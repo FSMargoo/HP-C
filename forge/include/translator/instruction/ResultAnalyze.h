@@ -21,6 +21,13 @@ public:
      * result variable, it will return empty string
      */
     static std::string Analyze(llvm::Value *Value);
+	/**
+	 * Analyzing the result variable name of an instruction
+	 * @param Value The value to be analyzed
+	 * @return The result variable name, if there is no
+	 * result variable, it will return empty string
+	 */
+	static std::string AnalyzeName(llvm::Value *Value);
 };
 
 #endif //RESULTANALYZE_H
