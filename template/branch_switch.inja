@@ -1,0 +1,3 @@
+﻿i_Last_Status_Machine := i_Status_Machine;
+i_Status_Machine := "{{ newStatus }}";
+{% if inVM %}continue;{% endif %}

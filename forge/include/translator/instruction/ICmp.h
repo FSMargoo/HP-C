@@ -23,6 +23,13 @@ public:
 	  * @return The translated code in PPL
 	  */
 	static std::string Translate(llvm::ICmpInst *Inst, Context &Contxt);
+	/**
+	  * Translating the condition instruction into PPL code
+	  * @param Inst The instruction to be translated
+	  * @param Contxt The context of the module
+	  * @return The translated condition code in PPL
+	  */
+	static std::string TranslateCond(llvm::ICmpInst *Inst, Context &Contxt);
 
 private:
 	/**

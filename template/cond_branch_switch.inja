@@ -1,0 +1,9 @@
+﻿IF {{ cond }} THEN
+i_Last_Status_Machine := i_Status_Machine;
+i_Status_Machine := "{{ trueNewStatus }}";
+{% if inVM %}continue;{% endif %}
+ELSE
+i_Last_Status_Machine := i_Status_Machine;
+i_Status_Machine := "{{ falseNewStatus }}";
+{% if inVM %}continue;{% endif %}
+END;

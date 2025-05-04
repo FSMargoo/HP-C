@@ -14,6 +14,14 @@
 std::string ICmpTranslator::Translate(llvm::ICmpInst *Inst, Context &Contxt) {
 	auto resultVariable = ResultVariableAnalyzer::Analyze(Inst);
 
+	inja::json data;
+	data["result"] = resultVariable;
+	data["cond"] = TranslateCond(Inst, Contxt);
+
+	return TemplateManager::Instance().RenderFile(TemplateManager::ICmpAssignment, data);
+}
+
+std::string ICmpTranslator::TranslateCond(llvm::ICmpInst *Inst, Context &Contxt) {
 	auto pred = Inst->getPredicate();
 	auto predString = PredicateToString(pred);
 
@@ -27,12 +35,11 @@ std::string ICmpTranslator::Translate(llvm::ICmpInst *Inst, Context &Contxt) {
 	rightValue = rightValue.empty() ? LLVMAnonyExtractor::Extract(right) : rightValue;
 
 	inja::json data;
-	data["result"] = resultVariable;
 	data["left"] = leftValue;
 	data["right"] = rightValue;
 	data["op"] = predString;
 
-	return TemplateManager::Instance().RenderFile(TemplateManager::ICmpAssignment, data);
+	return TemplateManager::Instance().RenderFile(TemplateManager::Cond, data);
 }
 
 const char *ICmpTranslator::PredicateToString(llvm::ICmpInst::Predicate Pred) {

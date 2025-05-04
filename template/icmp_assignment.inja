@@ -1,1 +1,1 @@
-﻿{{ result }}{{ left }}{{ op }}{{ right }};
+﻿{{ result }}{{ cond }};

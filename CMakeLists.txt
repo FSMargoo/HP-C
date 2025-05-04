@@ -44,6 +44,8 @@ add_executable(PPLForge forge/main.cpp
         forge/include/translator/Type.h
         forge/include/translator/instruction/ICmp.h
         forge/src/translator/instruction/ICmp.cpp
+        forge/include/translator/instruction/Br.h
+        forge/src/translator/instruction/Br.cpp
 )
 
 target_include_directories(PPLForge SYSTEM PRIVATE

@@ -8,12 +8,14 @@
 
 #include <include/translator/instruction/BinOp.h>
 #include <include/translator/instruction/ICmp.h>
+#include <include/translator/instruction/Br.h>
 #include <include/translator/instruction/Alloca.h>
 
 #include <llvm-c/Core.h>
 
 std::string BasicBlockTranslator::Translate(llvm::BasicBlock &Block, Context &Contxt) {
     std::string code;
+	bool first = true;
     for (auto &inst : Block) {
         if (auto binOp = llvm::dyn_cast<llvm::BinaryOperator>(&inst)) {
             code += BinOpTranslator::Translate(binOp, Contxt) + "\n";
@@ -24,6 +26,11 @@ std::string BasicBlockTranslator::Translate(llvm::BasicBlock &Block, Context &Co
     	if (auto icmp = llvm::dyn_cast<llvm::ICmpInst>(&inst)) {
     		code += ICmpTranslator::Translate(icmp, Contxt) + "\n";
     	}
+    	if (auto br = llvm::dyn_cast<llvm::BranchInst>(&inst)) {
+    		code += BrTranslator::Translate(br, Contxt, !first) + "\n";
+    	}
+
+    	first = false;
     }
 
     return code;

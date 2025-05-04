@@ -21,6 +21,9 @@ public:
     static constexpr const char *BinaryOperationFunc = "../template/binary_operation_func.inja";
 	static constexpr const char *Assignment = "../template/assignment.inja";
 	static constexpr const char *ICmpAssignment = "../template/icmp_assignment.inja";
+	static constexpr const char *BranchSwitch = "../template/branch_switch.inja";
+	static constexpr const char *Cond = "../template/cond.inja";
+	static constexpr const char *CondBranchSwitch = "../template/cond_branch_switch.inja";
 
 public:
     /**
