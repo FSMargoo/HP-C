@@ -20,6 +20,7 @@ public:
     static constexpr const char *BinaryOperation = "../template/binary_operation.inja";
     static constexpr const char *BinaryOperationFunc = "../template/binary_operation_func.inja";
 	static constexpr const char *Assignment = "../template/assignment.inja";
+	static constexpr const char *ICmpAssignment = "../template/icmp_assignment.inja";
 
 public:
     /**

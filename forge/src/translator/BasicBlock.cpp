@@ -7,6 +7,7 @@
 #include <include/translator/BasicBlock.h>
 
 #include <include/translator/instruction/BinOp.h>
+#include <include/translator/instruction/ICmp.h>
 #include <include/translator/instruction/Alloca.h>
 
 #include <llvm-c/Core.h>
@@ -20,6 +21,9 @@ std::string BasicBlockTranslator::Translate(llvm::BasicBlock &Block, Context &Co
         if (auto alloca = llvm::dyn_cast<llvm::AllocaInst>(&inst)) {
         	code += AllocaTranslator::Translate(alloca, Contxt) + "\n";
         }
+    	if (auto icmp = llvm::dyn_cast<llvm::ICmpInst>(&inst)) {
+    		code += ICmpTranslator::Translate(icmp, Contxt) + "\n";
+    	}
     }
 
     return code;
