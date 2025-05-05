@@ -4,12 +4,15 @@
  *      @Date           :   5/4/2025
  */
 
+#include "include/translator/instruction/Ret.h"
+
 #include <include/translator/BasicBlock.h>
 
 #include <include/translator/instruction/BinOp.h>
 #include <include/translator/instruction/ICmp.h>
 #include <include/translator/instruction/Br.h>
 #include <include/translator/instruction/Alloca.h>
+#include <include/translator/instruction/Ret.h>
 
 #include <llvm-c/Core.h>
 
@@ -28,6 +31,9 @@ std::string BasicBlockTranslator::Translate(llvm::BasicBlock &Block, Context &Co
     	}
     	if (auto br = llvm::dyn_cast<llvm::BranchInst>(&inst)) {
     		code += BrTranslator::Translate(br, Contxt, !first) + "\n";
+    	}
+    	if (auto ret = llvm::dyn_cast<llvm::ReturnInst>(&inst)) {
+    		code += RetTranslator::Translate(ret, Contxt) + "\n";
     	}
 
     	first = false;

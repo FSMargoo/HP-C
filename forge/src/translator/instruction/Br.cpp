@@ -28,10 +28,10 @@ std::string BrTranslator::Translate(llvm::BranchInst *Inst, Context &Contxt, boo
 		auto cond = Inst->getCondition();
 
 		auto condString = ConstantTranslator::Translate(*static_cast<llvm::Constant*>(cond), Contxt);
-		if (llvm::ICmpInst *icmp = llvm::dyn_cast<llvm::ICmpInst>(cond)) {
+		if (auto icmp = llvm::dyn_cast<llvm::ICmpInst>(cond)) {
 			condString = LLVMAnonyExtractor::Extract(icmp);
-		} else if (llvm::FCmpInst *fcmp = llvm::dyn_cast<llvm::FCmpInst>(cond)) {
-			// TODO: Supporting fcmp
+		} else if (auto fcmp = llvm::dyn_cast<llvm::FCmpInst>(cond)) {
+			condString = LLVMAnonyExtractor::Extract(icmp);
 		}
 
 		inja::json data;
