@@ -12,7 +12,7 @@
 #include <include/TemplateManager.h>
 
 std::string ICmpTranslator::Translate(llvm::ICmpInst *Inst, Context &Contxt) {
-	auto resultVariable = ResultVariableAnalyzer::Analyze(Inst);
+	auto resultVariable = ResultVariableAnalyzer::Analyze(Inst, Contxt);
 
 	inja::json data;
 	data["result"] = resultVariable;
@@ -31,8 +31,8 @@ std::string ICmpTranslator::TranslateCond(llvm::ICmpInst *Inst, Context &Contxt)
 	auto leftValue = ConstantTranslator::Translate(*static_cast<llvm::Constant *>(left), Contxt);
 	auto rightValue = ConstantTranslator::Translate(*static_cast<llvm::Constant *>(right), Contxt);
 
-	leftValue = leftValue.empty() ? LLVMAnonyExtractor::Extract(left) : leftValue;
-	rightValue = rightValue.empty() ? LLVMAnonyExtractor::Extract(right) : rightValue;
+	leftValue = leftValue.empty() ? LLVMAnonyExtractor::Extract(left, Contxt) : leftValue;
+	rightValue = rightValue.empty() ? LLVMAnonyExtractor::Extract(right, Contxt) : rightValue;
 
 	inja::json data;
 	data["left"] = leftValue;

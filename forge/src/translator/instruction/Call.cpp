@@ -24,7 +24,7 @@ std::string CallTranslator::Translate(llvm::CallInst *Inst, Context &Contxt) {
 
 		auto argString = ConstantTranslator::Translate(*arg, Contxt);
 		if (argString.empty()) {
-			argString = LLVMAnonyExtractor::Extract(arg);
+			argString = LLVMAnonyExtractor::Extract(arg, Contxt);
 		}
 
 		args.emplace_back(argString);

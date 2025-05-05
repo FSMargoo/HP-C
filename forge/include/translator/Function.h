@@ -28,23 +28,26 @@ private:
     /**
      * Analyizing the function parameters
      * @param Function The function to be analyzed
+     * @param Contxt The context of the module
      * @return The parameter definition string
      */
-    static std::string AnalyzingParameters(llvm::Function &Function);
+    static std::string AnalyzingParameters(llvm::Function &Function, Context &Contxt);
 
     /**
      * Analyzing the predefines of the variables in the function
      * @param Function The function be analyzed
+     * @param Contxt The context of the module
      * @return The predefine of variables in PPL code
      */
-    static std::string AnalyzingPreDefines(llvm::Function &Function);
+    static std::string AnalyzingPreDefines(llvm::Function &Function, Context &Contxt);
 
     /**
      * Analyzing the label name of the block
      * @param Block The block to be analyzed
+     * @param Contxt The context of the module
      * @return The label name of the block
      */
-    static std::string AnalyzingLabel(llvm::BasicBlock &Block);
+    static std::string AnalyzingLabel(llvm::BasicBlock &Block, Context &Contxt);
 };
 
 #endif //FUNCTION_H

@@ -11,12 +11,13 @@
 #include <inja/inja.hpp>
 
 std::string VariableTranslator::GlobalVariableTranslate(llvm::GlobalVariable &Variable,
-                                                        const std::string &Initializer) {
+                                                        const std::string &Initializer,
+                                                        Context &Contxt) {
     inja::json data;
 
     auto name = Variable.getName().str();
     if (!Variable.hasName()) {
-        name = LLVMAnonyExtractor::Extract(&Variable);
+        name = LLVMAnonyExtractor::Extract(&Variable, Contxt);
     }
 
     auto initializer = Initializer;

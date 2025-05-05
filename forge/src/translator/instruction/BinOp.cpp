@@ -12,7 +12,7 @@
 std::string BinOpTranslator::Translate(llvm::BinaryOperator *Inst, Context &Contxt) {
 	inja::json data;
 
-	data["resultVariable"] = ResultVariableAnalyzer::Analyze(Inst);
+	data["resultVariable"] = ResultVariableAnalyzer::Analyze(Inst, Contxt);
 
 	std::string opString[Inst->getNumOperands()];
 	for (unsigned i = 0; i < Inst->getNumOperands(); ++i) {
@@ -22,7 +22,7 @@ std::string BinOpTranslator::Translate(llvm::BinaryOperator *Inst, Context &Cont
 		} else if (auto *constant = dyn_cast<llvm::Constant>(op)) {
 			opString[i] = ConstantTranslator::Translate(*constant, Contxt);
 		} else {
-			opString[i] = LLVMAnonyExtractor::Extract(op);
+			opString[i] = LLVMAnonyExtractor::Extract(op, Contxt);
 		}
 	}
 

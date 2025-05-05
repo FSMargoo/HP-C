@@ -10,6 +10,9 @@
 #include <include/TemplateManager.h>
 
 std::string FunctionTranslator::Translate(llvm::Function &Function, Context &Contxt) {
+	// We just discard the previous pointer reference mapping data
+	Contxt.PointerRef.clear();
+
     // We just skip the declaration function, like the sys lib function
     // or the llvm.xxx function
     if (Function.isDeclaration()) {
@@ -18,7 +21,7 @@ std::string FunctionTranslator::Translate(llvm::Function &Function, Context &Con
 
     auto name = Function.getName().str();
     bool isExport = name == "main" ? true : false;
-    auto args = AnalyzingParameters(Function);
+    auto args = AnalyzingParameters(Function, Contxt);
     std::vector<std::string> labels;
     std::map<std::string, std::string> labelCodeMapping;
     std::string firstLabel;
@@ -27,8 +30,8 @@ std::string FunctionTranslator::Translate(llvm::Function &Function, Context &Con
         if (&block == &(*Function.begin())) {
             firstLabel = BasicBlockTranslator::Translate(block, Contxt);
         } else {
-            auto labelName = AnalyzingLabel(block);
-            labels.push_back(AnalyzingLabel(block));
+            auto labelName = AnalyzingLabel(block, Contxt);
+            labels.push_back(AnalyzingLabel(block, Contxt));
             labelCodeMapping.insert({labelName, BasicBlockTranslator::Translate(block, Contxt)});
         }
     }
@@ -37,7 +40,7 @@ std::string FunctionTranslator::Translate(llvm::Function &Function, Context &Con
     data["export"] = isExport;
     data["name"] = name;
     data["args"] = args;
-    data["predefine"] = AnalyzingPreDefines(Function);
+    data["predefine"] = AnalyzingPreDefines(Function, Contxt);
     data["firstBlock"] = firstLabel;
     data["labels"] = labels;
 
@@ -48,12 +51,12 @@ std::string FunctionTranslator::Translate(llvm::Function &Function, Context &Con
     return TemplateManager::Instance().RenderFile(TemplateManager::Function, data);
 }
 
-std::string FunctionTranslator::AnalyzingParameters(llvm::Function &Function) {
+std::string FunctionTranslator::AnalyzingParameters(llvm::Function &Function, Context &Contxt) {
     std::vector<std::string> args;
     for (auto &arg: Function.args()) {
         auto name = arg.getName().str();
         if (!arg.hasName()) {
-            name = LLVMAnonyExtractor::Extract(&arg);
+            name = LLVMAnonyExtractor::Extract(&arg, Contxt);
         }
 
         args.push_back(name);
@@ -66,14 +69,14 @@ std::string FunctionTranslator::AnalyzingParameters(llvm::Function &Function) {
     return TemplateManager::Instance().RenderFile(TemplateManager::Args, data);
 }
 
-std::string FunctionTranslator::AnalyzingPreDefines(llvm::Function &Function) {
+std::string FunctionTranslator::AnalyzingPreDefines(llvm::Function &Function, Context &Contxt) {
     inja::json data;
 	data["vars"] = {};
     for (auto &blocks: Function) {
         for (auto &inst: blocks) {
             // Scan for the result variable definition;
             if (!inst.getType()->isVoidTy()) {
-                data["vars"].push_back(LLVMAnonyExtractor::Extract(&inst));
+                data["vars"].push_back(LLVMAnonyExtractor::Extract(&inst, Contxt));
             }
         }
     }
@@ -83,10 +86,10 @@ std::string FunctionTranslator::AnalyzingPreDefines(llvm::Function &Function) {
     return TemplateManager::Instance().RenderFile(TemplateManager::VariablePredefine, data);
 }
 
-std::string FunctionTranslator::AnalyzingLabel(llvm::BasicBlock &Block) {
+std::string FunctionTranslator::AnalyzingLabel(llvm::BasicBlock &Block, Context &Contxt) {
     if (Block.hasName()) {
         return Block.getName().str();
     }
 
-    return LLVMAnonyExtractor::Extract(&Block);
+    return LLVMAnonyExtractor::Extract(&Block, Contxt);
 }

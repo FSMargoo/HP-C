@@ -23,7 +23,7 @@ std::string ModuleTranslator::Translate() {
         if (!initializerString.empty() && initializerString[0] == '$') {
             _context.GlobalRef.insert({variable.getName().str(), initializerString.substr(1)});
         } else {
-            code += VariableTranslator::GlobalVariableTranslate(variable, initializerString);
+            code += VariableTranslator::GlobalVariableTranslate(variable, initializerString, _context);
 
         	_context.GlobalRef.insert({variable.getName().str(), initializerString});
         }

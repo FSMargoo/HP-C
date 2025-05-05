@@ -13,7 +13,7 @@
 #include <include/TemplateManager.h>
 
 std::string AllocaTranslator::Translate(llvm::AllocaInst *Inst, Context &Contxt) {
-	auto resultVariable = ResultVariableAnalyzer::AnalyzeName(Inst);
+	auto resultVariable = ResultVariableAnalyzer::AnalyzeName(Inst, Contxt);
 	auto allocaType = Inst->getAllocatedType();
 
 	auto initializer = TypeAnalyzer::Analyze(allocaType);

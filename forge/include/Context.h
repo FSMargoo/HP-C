@@ -18,6 +18,10 @@ struct Context {
      * The reference in the global variables
      */
     std::map<std::string, std::string> GlobalRef;
+    /**
+     * The pointer mapping in the local scope
+     */
+    std::map<std::string, std::string> PointerRef;
 };
 
 #endif //CONTEXT_H

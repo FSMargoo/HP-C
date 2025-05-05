@@ -14,7 +14,7 @@
 std::string BrTranslator::Translate(llvm::BranchInst *Inst, Context &Contxt, bool InLoop) {
 	if (!Inst->isConditional()) {
 		// No condition branch switch
-		auto label = GetLabel(Inst->getSuccessor(0));
+		auto label = GetLabel(Inst->getSuccessor(0), Contxt);
 
 		inja::json data;
 		data["newStatus"] = label;
@@ -23,15 +23,15 @@ std::string BrTranslator::Translate(llvm::BranchInst *Inst, Context &Contxt, boo
 		return TemplateManager::Instance().RenderFile(TemplateManager::BranchSwitch, data);
 	}
 	else {
-		auto trueLabel = GetLabel(Inst->getSuccessor(0));
-		auto falseLabel = GetLabel(Inst->getSuccessor(1));
+		auto trueLabel = GetLabel(Inst->getSuccessor(0), Contxt);
+		auto falseLabel = GetLabel(Inst->getSuccessor(1), Contxt);
 		auto cond = Inst->getCondition();
 
 		auto condString = ConstantTranslator::Translate(*static_cast<llvm::Constant*>(cond), Contxt);
 		if (auto icmp = llvm::dyn_cast<llvm::ICmpInst>(cond)) {
-			condString = LLVMAnonyExtractor::Extract(icmp);
+			condString = LLVMAnonyExtractor::Extract(icmp, Contxt);
 		} else if (auto fcmp = llvm::dyn_cast<llvm::FCmpInst>(cond)) {
-			condString = LLVMAnonyExtractor::Extract(icmp);
+			condString = LLVMAnonyExtractor::Extract(icmp, Contxt);
 		}
 
 		inja::json data;
@@ -44,6 +44,6 @@ std::string BrTranslator::Translate(llvm::BranchInst *Inst, Context &Contxt, boo
 	}
 }
 
-std::string BrTranslator::GetLabel(llvm::BasicBlock *Block) {
-	return LLVMAnonyExtractor::Extract(Block);
+std::string BrTranslator::GetLabel(llvm::BasicBlock *Block, Context &Contxt) {
+	return LLVMAnonyExtractor::Extract(Block, Contxt);
 }

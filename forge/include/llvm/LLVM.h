@@ -21,6 +21,8 @@
 #include <llvm/Support/SourceMgr.h>
 #include <llvm/Support/raw_ostream.h>
 
+#include <include/Context.h>
+
 /**
  * The LLVM context wrapper
  */
@@ -67,9 +69,10 @@ public:
     /**
      * Extracting the ID of a value, returning in a sensible ID in PPL
      * @param Value The value to be extracted
+     * @param Contxt The context of the local scope
      * @return The ID of the value
      */
-    static std::string Extract(const llvm::Value *Value);
+    static std::string Extract(const llvm::Value *Value, Context &Contxt);
 };
 
 /**

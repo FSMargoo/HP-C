@@ -21,7 +21,7 @@ std::string RetTranslator::Translate(llvm::ReturnInst *Inst, Context &Contxt) {
 		data["value"] = ConstantTranslator::Translate(*static_cast<llvm::Constant *>(retValue), Contxt);
 	}
 	else {
-		data["value"] = LLVMAnonyExtractor::Extract(retValue);
+		data["value"] = LLVMAnonyExtractor::Extract(retValue, Contxt);
 	}
 
 	return TemplateManager::Instance().RenderFile(TemplateManager::Return, data);

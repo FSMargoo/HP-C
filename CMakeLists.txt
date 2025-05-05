@@ -50,6 +50,8 @@ add_executable(PPLForge forge/main.cpp
         forge/src/translator/instruction/Ret.cpp
         forge/include/translator/instruction/Call.h
         forge/src/translator/instruction/Call.cpp
+        forge/include/translator/instruction/GetElementPtr.h
+        forge/src/translator/instruction/GetElementPtr.cpp
 )
 
 target_include_directories(PPLForge SYSTEM PRIVATE

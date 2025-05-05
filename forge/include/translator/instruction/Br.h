@@ -29,9 +29,10 @@ private:
 	/**
 	 * Getting the label name of the basic block
 	 * @param Block The block to get the label name
+	 * @param Contxt The context of the module
 	 * @return The label name of the basic block
 	 */
-	static std::string GetLabel(llvm::BasicBlock *Block);
+	static std::string GetLabel(llvm::BasicBlock *Block, Context &Contxt);
 };
 
 #endif //BR_H

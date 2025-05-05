@@ -6,17 +6,17 @@
 
 #include <include/translator/instruction/ResultAnalyze.h>
 
-std::string ResultVariableAnalyzer::Analyze(llvm::Value *Value) {
+std::string ResultVariableAnalyzer::Analyze(llvm::Value *Value, Context &Contxt) {
     if (Value->getType()->isVoidTy()) {
         return "";
     }
 
-    return LLVMAnonyExtractor::Extract(Value) + " := ";
+    return LLVMAnonyExtractor::Extract(Value, Contxt) + " := ";
 }
-std::string ResultVariableAnalyzer::AnalyzeName(llvm::Value *Value) {
+std::string ResultVariableAnalyzer::AnalyzeName(llvm::Value *Value, Context &Contxt) {
 	if (Value->getType()->isVoidTy()) {
 		return "";
 	}
 
-	return LLVMAnonyExtractor::Extract(Value);
+	return LLVMAnonyExtractor::Extract(Value, Contxt);
 }

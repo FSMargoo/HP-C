@@ -16,9 +16,10 @@ public:
      * @param Variable The global variable
      * @param Initializer The initializer string for the variable, if keep empty means this variable
      * has no initializer
+     * @param Contxt The context of the current scope
      * @return The definition code in PPL
      */
-    static std::string GlobalVariableTranslate(llvm::GlobalVariable &Variable, const std::string &Initializer);
+    static std::string GlobalVariableTranslate(llvm::GlobalVariable &Variable, const std::string &Initializer, Context &Contxt);
 
     /**
      * Expanding the llvm::ArrayType object to string
