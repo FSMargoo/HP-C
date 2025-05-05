@@ -48,6 +48,8 @@ add_executable(PPLForge forge/main.cpp
         forge/src/translator/instruction/Br.cpp
         forge/include/translator/instruction/Ret.h
         forge/src/translator/instruction/Ret.cpp
+        forge/include/translator/instruction/Call.h
+        forge/src/translator/instruction/Call.cpp
 )
 
 target_include_directories(PPLForge SYSTEM PRIVATE

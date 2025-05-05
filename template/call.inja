@@ -1,0 +1,1 @@
+﻿{{ name }}({% for arg in args %}{{arg}}{% if loop.index1 < num %}, {% endif %}{% endfor %});

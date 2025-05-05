@@ -25,6 +25,7 @@ public:
 	static constexpr const char *Cond = "../template/cond.inja";
 	static constexpr const char *Return = "../template/return.inja";
 	static constexpr const char *CondBranchSwitch = "../template/cond_branch_switch.inja";
+	static constexpr const char *Call = "../template/call.inja";
 
 public:
     /**

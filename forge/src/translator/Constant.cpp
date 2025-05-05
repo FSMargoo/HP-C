@@ -71,7 +71,13 @@ std::string ConstantTranslator::Translate(llvm::Constant &Constant, Context &Con
 
     // Check for global reference
     if (auto *globalReference = dyn_cast<GlobalValue>(&Constant)) {
-        return "$" + globalReference->getName().str();
+    	// Evaling the global reference
+    	if (Contxt.GlobalRef.find(globalReference->getName().str()) == Contxt.GlobalRef.end()) {
+    		return "$" + globalReference->getName().str();
+    	}
+    	else {
+    		return Contxt.GlobalRef[globalReference->getName().str()];
+    	}
     }
 
     // Check for ConstantStruct

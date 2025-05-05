@@ -24,6 +24,8 @@ std::string ModuleTranslator::Translate() {
             _context.GlobalRef.insert({variable.getName().str(), initializerString.substr(1)});
         } else {
             code += VariableTranslator::GlobalVariableTranslate(variable, initializerString);
+
+        	_context.GlobalRef.insert({variable.getName().str(), initializerString});
         }
     }
 

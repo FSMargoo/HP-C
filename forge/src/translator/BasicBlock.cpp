@@ -12,6 +12,7 @@
 #include <include/translator/instruction/ICmp.h>
 #include <include/translator/instruction/Br.h>
 #include <include/translator/instruction/Alloca.h>
+#include <include/translator/instruction/Call.h>
 #include <include/translator/instruction/Ret.h>
 
 #include <llvm-c/Core.h>
@@ -34,6 +35,9 @@ std::string BasicBlockTranslator::Translate(llvm::BasicBlock &Block, Context &Co
     	}
     	if (auto ret = llvm::dyn_cast<llvm::ReturnInst>(&inst)) {
     		code += RetTranslator::Translate(ret, Contxt) + "\n";
+    	}
+    	if (auto ret = llvm::dyn_cast<llvm::CallInst>(&inst)) {
+    		code += CallTranslator::Translate(ret, Contxt) + "\n";
     	}
 
     	first = false;
