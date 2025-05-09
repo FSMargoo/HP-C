@@ -1,58 +1,97 @@
-﻿// The native memory usage record list
-LOCAL pplMList := { };
-// The memory blocks
-LOCAL pplMBlocks := { };
-// Allocating a block of memory
+﻿LOCAL blockCount := 0;
+LOCAL freeHead   := 0;
+LOCAL nextPtr    := { };
+
 ppl_forge_allocate()
 BEGIN
-    LOCAL freeSize = SIZE(pplMList);
-    // Allocating a new memory
-    IF freeSize == 0 THEN
-        LOCAL mbSize        := SIZE(pplMBlocks);
-        pplMBlocks[0]       := 0;
-        pplMList[0]         := mbSize;
+    LOCAL pos;
 
-        RETURN mbSize;
+    IF freeHead <> 0 THEN
+        pos       := freeHead;
+        freeHead  := nextPtr[freeHead];
+    ELSE
+        blockCount      := blockCount + 1;
+        pos             := blockCount;
+
+        nextPtr[pos]    := 0;
     END;
 
-    // Nor returning the basic memory list
-    RETURN pplMList[1];
+    RETURN pos;
 END;
-// Freeing a memory from the memory pool
+
 ppl_forge_free(P)
 BEGIN
-    // Check whether the P is valid
-    IF P <= SIZE(pplMBlocks) THEN
-        // Inserting the P
-        pplMList[0]     := P;
-        pplMBlocks[P]   := 0;
+    IF P >= 1 AND P <= blockCount THEN
+        nextPtr[P]   := freeHead;
+        freeHead     := P;
     END;
 END;
 
+// 示例测试函数
 testFnc(X)
 BEGIN
-    pplMBlocks[X] := 5;
+  // 模拟写数据到块 X
+  nextPtr[X] := 5;
+END;
+
+// 基准测试：重复分配、写入、释放
+bm_1()
+BEGIN
+  LOCAL t1, t2, i, ptr, ptr2;
+  t1 := TICKS();
+
+  FOR i FROM 1 TO 1000 DO
+    ptr  := ppl_forge_allocate();
+    ptr2 := ppl_forge_allocate();
+
+    // 模拟对块的写入
+    nextPtr[ptr] := 3;
+    testFnc(ptr);
+    testFnc(ptr2);
+
+    // 释放
+    ppl_forge_free(ptr);
+    ppl_forge_free(ptr2);
+  END;
+
+  t2 := TICKS();
+  PRINT("Elapsed ms: " + STRING(t2 - t1));
+END;
+
+bm_2()
+BEGIN
+    LOCAL t1 = TICKS();
+    LOCAL i;
+    FOR i FROM 1 TO 1000 DO
+        LOCAL v;
+        LOCAL v2;
+
+        v := 3;
+
+        v := 5;
+        v2 := 5;
+    END;
+    LOCAL t2 = TICKS();
+
+    PRINT(t2 - t1);
 END;
 
 EXPORT test()
 BEGIN
-    LOCAL ptr = ppl_forge_allocate();
-    LOCAL ptr2 = ppl_forge_allocate();
+    PRINT();
+    PRINT("Testing start...");
 
-    pplMBlocks[ptr] := 3;
+    LOCAL i := 0;
 
-    PRINT(pplMBlocks[ptr]);
-    PRINT(pplMBlocks[ptr2]);
-
-    testFnc(ptr);
-    testFnc(ptr2);
-
-    PRINT(pplMBlocks[ptr]);
-    PRINT(pplMBlocks[ptr2]);
-
-    LOCAL legacy := ptr;
-    ppl_forge_free(ptr);
-    IF ppl_forge_allocate() != legacy THEN
-        PRINT("Can't reuse memory block!");
+    FOR i FROM 1 TO 100 DO
+        bm_1();
     END;
+    PRINT("-------------------------------------");
+    FOR i FROM 1 TO 100 DO
+        bm_2();
+    END;
+
+    PRINT("Testing end");
+
+    RETURN 0;
 END;

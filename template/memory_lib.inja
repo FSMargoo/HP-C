@@ -1,30 +1,37 @@
-﻿// The native memory usage record list
-LOCAL pplMList := { };
-// The memory blocks
-LOCAL pplMBlocks := { };
-// Allocating a block of memory
+﻿LOCAL blockCount := 0;
+LOCAL freeHead   := 0;
+LOCAL nextPtr    := { };
+
 ppl_forge_allocate()
 BEGIN
-    LOCAL freeSize = SIZE(pplMList);
-    // Allocating a new memory
-    IF freeSize == 0 THEN
-        LOCAL mbSize        := SIZE(pplMBlocks);
-        pplMBlocks[0]       := 0;
-        pplMList[0]         := mbSize;
+    LOCAL pos;
 
-        RETURN mbSize;
+    IF freeHead <> 0 THEN
+        pos       := freeHead;
+        freeHead  := nextPtr[freeHead];
+    ELSE
+        blockCount      := blockCount + 1;
+        pos             := blockCount;
+
+        nextPtr[pos]    := 0;
     END;
 
-    // Nor returning the basic memory list
-    RETURN pplMList[1];
+    RETURN pos;
 END;
-// Freeing a memory from the memory pool
+
 ppl_forge_free(P)
 BEGIN
-    // Check whether the P is valid
-    IF P <= SIZE(pplMBlocks) THEN
-        // Inserting the P
-        pplMList[0]     := P;
-        pplMBlocks[P]   := 0;
+    IF P >= 1 AND P <= blockCount THEN
+        nextPtr[P]   := freeHead;
+        freeHead     := P;
     END;
 END;
+
+// 示例测试函数
+testFnc(X)
+BEGIN
+  // 模拟写数据到块 X
+  nextPtr[X] := 5;
+END;
+
+{{ program }}

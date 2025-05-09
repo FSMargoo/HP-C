@@ -9,6 +9,8 @@
 #include <include/translator/Constant.h>
 #include <include/translator/Function.h>
 
+#include <include/TemplateManager.h>
+
 ModuleTranslator::ModuleTranslator(std::unique_ptr<llvm::Module> &Module) : _module(Module) {
 }
 
@@ -33,5 +35,8 @@ std::string ModuleTranslator::Translate() {
         code += FunctionTranslator::Translate(function, _context) + "\n";
     }
 
-    return code;
+	inja::json data;
+	data["program"] = code;
+
+    return TemplateManager::Instance().RenderFile(TemplateManager::MemoryLib, data);
 }

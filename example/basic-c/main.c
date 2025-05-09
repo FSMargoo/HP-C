@@ -69,12 +69,15 @@ void test_functions(void) {
 
 /* Test structures, enums and typedefs */
 typedef struct Point { int x; int y; } Point;
+typedef struct PointRepeat { int x; int y; Point p; } PointRepeat;
 enum Color { RED, GREEN = 5, BLUE };
 
 void test_struct_enum(void) {
-    Point p;
+    PointRepeat p;
     p.x = 3;
     p.y = 4;
+    p.p.x = p.y;
+    p.p.y = p.x;
     TEST(struct_access_x, p.x, 3);
     TEST(struct_access_y, p.y, 4);
 
@@ -119,6 +122,13 @@ void test_cast(void) {
 void test_macros(void) {
     TEST(square_3, SQUARE(3), 9);
     TEST(max_4_7, MAX(4,7), 7);
+}
+
+void test_normal_pointer(void) {
+    int variable = 0;
+    int* pointer = &variable;
+
+    TEST(normal_pointer, *pointer, variable);
 }
 
 int main(void) {

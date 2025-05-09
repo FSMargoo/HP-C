@@ -26,6 +26,7 @@ public:
 	static constexpr const char *Return = "../template/return.inja";
 	static constexpr const char *CondBranchSwitch = "../template/cond_branch_switch.inja";
 	static constexpr const char *Call = "../template/call.inja";
+	static constexpr const char *MemoryLib = "../template/memory_lib.inja";
 
 public:
     /**
