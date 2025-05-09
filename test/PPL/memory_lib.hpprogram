@@ -1,0 +1,58 @@
+﻿// The native memory usage record list
+LOCAL pplMList := { };
+// The memory blocks
+LOCAL pplMBlocks := { };
+// Allocating a block of memory
+ppl_forge_allocate()
+BEGIN
+    LOCAL freeSize = SIZE(pplMList);
+    // Allocating a new memory
+    IF freeSize == 0 THEN
+        LOCAL mbSize        := SIZE(pplMBlocks);
+        pplMBlocks[0]       := 0;
+        pplMList[0]         := mbSize;
+
+        RETURN mbSize;
+    END;
+
+    // Nor returning the basic memory list
+    RETURN pplMList[1];
+END;
+// Freeing a memory from the memory pool
+ppl_forge_free(P)
+BEGIN
+    // Check whether the P is valid
+    IF P <= SIZE(pplMBlocks) THEN
+        // Inserting the P
+        pplMList[0]     := P;
+        pplMBlocks[P]   := 0;
+    END;
+END;
+
+testFnc(X)
+BEGIN
+    pplMBlocks[X] := 5;
+END;
+
+EXPORT test()
+BEGIN
+    LOCAL ptr = ppl_forge_allocate();
+    LOCAL ptr2 = ppl_forge_allocate();
+
+    pplMBlocks[ptr] := 3;
+
+    PRINT(pplMBlocks[ptr]);
+    PRINT(pplMBlocks[ptr2]);
+
+    testFnc(ptr);
+    testFnc(ptr2);
+
+    PRINT(pplMBlocks[ptr]);
+    PRINT(pplMBlocks[ptr2]);
+
+    LOCAL legacy := ptr;
+    ppl_forge_free(ptr);
+    IF ppl_forge_allocate() != legacy THEN
+        PRINT("Can't reuse memory block!");
+    END;
+END;

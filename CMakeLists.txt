@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_subdirectory(thirdparty/inja)
 
 # Adding the LLVM supporting
-list(APPEND CMAKE_PREFIX_PATH "D:/llvm-project-llvmorg-19.1.5/build")
+list(APPEND CMAKE_PREFIX_PATH "D:/llvm-project-llvmorg-19.1.5/llvm/cmake-build-release/lib/cmake/llvm")
 
 find_package(LLVM REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION} at ${LLVM_DIR}")
